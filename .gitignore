@@ -1,0 +1,22 @@
+# ROMs (do not commit copyrighted game files)
+*.gbc
+*.gb
+*.sav
+*.zip
+
+# Dependencies & build output
+node_modules/
+bower_components/
+dist/
+*.log
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Agent / local
+.agent/
+.cursor/

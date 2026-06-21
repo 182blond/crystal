@@ -1,0 +1,53 @@
+{
+  "name": "jsgbc-web",
+  "version": "0.5.8",
+  "description": "A GameBoy Color Emulator for the Web",
+  "main": "src/index.js",
+  "repository": "https://github.com/ardean/jsGBC-web",
+  "bugs": "https://github.com/ardean/jsGBC-web/issues",
+  "author": "ardean",
+  "license": "MIT",
+  "keywords": [
+    "gameboy",
+    "color",
+    "emulator",
+    "gameboy-color",
+    "gameboy-color-emulator",
+    "gbc",
+    "html5",
+    "html5-canvas",
+    "canvas",
+    "jsgbc"
+  ],
+  "scripts": {
+    "postinstall": "bower install || echo \"Run 'npx bower install' if bower_components is missing\"",
+    "start": "node --openssl-legacy-provider dev-server.js",
+    "build": "webpack --config webpack.prod.js && cpy ./jsgbc-web.js ./docs && gulp build && cpy bower_components/jsgbc-ui/images/*.png docs/bower_components/jsgbc-ui/images/ && cpy bower_components/webcomponentsjs/webcomponents.min.js docs/bower_components/webcomponentsjs/"
+  },
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "jsfullscreen": "^0.1.0",
+    "jsgamepad": "^0.1.0",
+    "jsgbc": "file:../jsGBC-core",
+    "jspointerlock": "^1.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^8.0.1",
+    "@babel/preset-env": "^8.0.2",
+    "@types/jquery": "^3.3.2",
+    "babel-loader": "^8.4.1",
+    "bower": "^1.8.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "cpy-cli": "^1.0.1",
+    "express": "^4.14.1",
+    "gulp": "^3.9.1",
+    "gulp-vulcanize": "^6.1.0",
+    "require-dir": "^0.3.1",
+    "ts-loader": "^4.3.0",
+    "typescript": "^2.8.3",
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.4",
+    "webpack-dev-server": "^3.1.4",
+    "webpack-merge": "^4.1.2"
+  }
+}

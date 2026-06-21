@@ -1,0 +1,1116 @@
+- Dinero infinito: 910F4ED8 91424FD8 913F50D8
+
+Todas las medallas: - 91FF57D8 - 91FF58D8
+
+Matar enemigos de un solo golpe: - 910017D2
+
+Batalla con pokémones especiales/shinys/brillosos/raros 910730D2
+
+Modificar nivel del enemigo: - 91xx13D2
+
+Todos los items del Pokegear: - 91FF57D8
+
+Tiempo de juego lento: - 9100c5d4 - 9100c6d4
+
+Atrapar cualquier Pokemon: - 91xx04D2
+01 - Bulbasaur
+02 - Ivysaur
+
+03 - Venusaur
+
+04 - Charmander
+
+05 - Charmeleon
+
+06 - Charizard
+
+07 - Squirtle
+
+08 - Wartortle
+
+09 - Blastoise
+
+0A - Caterpie
+
+0B - Metapod
+
+0C - Butterfree
+
+0D - Weedle
+
+0E - Kakuna
+
+0F - Beedrill
+
+10 - Pidgey
+
+11 - Pidgeotto
+
+12 - Pidgeot
+
+13 - Rattata
+
+14 - Raticate
+
+15 - Spearow
+
+16 - Fearow
+
+17 - Ekans
+
+18 - Arbok
+
+19 - Pikachu
+
+1A - Raichu
+
+1B - Sandshrew
+
+1C - Sandslash
+
+1D - Nidoran (F)
+
+1E - Nidorina
+
+1F - Nidoqueen
+
+20 - Nidoran male
+
+21 - Nidorino
+
+22 - Nidoking
+
+23 - Clefairy
+
+24 - Clefable
+
+25 - Vulpix
+
+26 - Ninetails
+
+27 - Jigglypuff
+
+28 - Wigglytuff
+
+29 - Zubat
+
+2A - Golbat
+
+2B - Oddish
+
+2C - Gloom
+
+2D - Vileplume
+
+2E - Paras
+
+2F - Parasect
+
+30 - Venonat
+
+31 - Venomoth
+
+32 - Diglett
+
+33 - Dugtrio
+
+34 - Meowth
+
+35 - Persian
+
+36 - Psyduck
+
+37 - Golduck
+
+38 - Mankey
+
+39 - Primeape
+
+3A - Growlithe
+
+3B - Arcanine
+
+3C - Poliwag
+
+3D - Poliwhirl
+
+3E - Poliwrath
+
+3F - Abra
+
+40 - Kadabra
+41 - Alakazam
+
+42 - Machop
+
+43 - Machoke
+
+44 - Machamp
+
+45 - Bellsprout
+
+46 - Weepinbell
+
+47 - Victreebell
+
+48 - Tentacool
+
+49 - Tentacruel
+
+4A - Geodude
+
+4B - Graveler
+
+4C - Golem
+
+4D - Ponyta
+
+4E - Rapidash
+
+4F - Slowpoke
+
+50 - Slowbro
+
+51 - Magnemite
+
+52 - Magneton
+
+53 - Farfetch'd
+
+54 - Doduo
+
+55 - Dodrio
+
+56 - Seel
+
+57 - Dewgong
+
+58 - Grimer
+
+59 - Muk
+
+5A - Shellder
+
+5B - Cloyster
+
+5C - Gastly
+
+5D - Haunter
+
+5E - Gengar
+
+5F - Onix
+
+60 - Drowzee
+
+61 - Hypno
+
+62 - Krabby
+
+63 - Kingler
+
+64 - Voltorb
+
+65 - Electrode
+
+66 - Exeggcute
+
+67 - Exeggcutor
+
+68 - Cubone
+
+69 - Marowak
+
+6A - Hitmonlee
+
+6B - Hitmonchan
+
+6C - Lickitung
+
+6D - Koffing
+
+6E - Weezing
+
+6F - Rhyhorn
+
+70 - Rhydon
+
+71 - Chansey
+
+72 - Tangela
+
+73 - Kangaskhan
+
+74 - Horsea
+
+75 - Seadra
+
+76 - Goldeen
+
+77 - Seaking
+
+78 - Staryu
+
+79 - Starmie
+
+7A - Mr. Mime
+
+7B - Scyther
+
+7C - Jynx
+
+7D - Electabuzz
+
+7E - Magmar
+
+7F - Pinsir
+80 - Tauros
+
+81 - Magikarp
+
+82 - Gyarados
+
+83 - Lapras
+
+84 - Ditto
+
+85 - Eevee
+
+86 - Vaporeon
+
+87 - Jolteon
+
+88 - Flareon
+
+89 - Porygon
+
+8A - Omanyte
+
+8B - Omastar
+
+8C - Kabuto
+
+8D - Kabutops
+
+8E - Aerodactyl
+
+8F - Snorlax
+
+90 - Articuno
+
+91 - Zapdos
+
+92 - Moltres
+
+93 - Dratini
+
+94 - Dragonair
+
+95 - Dragonite
+
+96 - Mewtwo
+
+97 - Mew
+
+98 - Chikorita
+
+99 - Bayleef
+
+9A - Meganium
+
+9B - Cyndaquil
+
+9C - Quilava
+
+9D - Typhlosion
+
+9E - Totodile
+
+9F - Croconaw
+
+A0 - Feraligatr
+
+A1 - Sentret
+
+A2 - Furret
+
+A3 - Hoothoot
+
+A4 - Noctowl
+
+A5 - Ledyba
+
+A6 - Ledian
+
+A7 - Spinarak
+
+A8 - Ariados
+
+A9 - Crobat
+
+AA - Chinchou
+
+AB - Lanturn
+
+AC - Pichu
+
+AD - Cleffa
+
+AE - Igglybuff
+
+AF - Togepi
+
+B0 - Togetic
+
+B1 - Natu
+
+B2 - Xatu
+
+B3 - Mareep
+
+B4 - Flaaffy
+
+B5 - Ampharos
+
+B6 - Bellossom
+
+B7 - Marill
+
+B8 - Azumarill
+
+B9 - Sudowoodo
+
+BA - Politoed
+
+BB - Hoppip
+
+BC - Skiploom
+
+BD - Jumpluff
+
+BE - Aipom
+BF - Sunkern
+
+C0 - Sunflora
+
+C1 - Yanma
+
+C2 - Wooper
+
+C3 - Quagsire
+
+C4 - Espeon
+
+C5 - Umbreon
+
+C6 - Murkrow
+
+C7 - Slowking
+
+C8 - Misdreavus
+
+C9 - Unown
+
+CA - Wobbuffet
+
+CB - Girafarig
+
+CC - Pineco
+
+CD - Forretress
+
+CE - Dunsparce
+
+CF - Gligar
+
+D0 - Steelix
+
+D1 - Snubbull
+
+D2 - Granbull
+
+D3 - Qwilfish
+
+D4 - Scizor
+
+D5 - Shuckle
+
+D6 - Heracross
+
+D7 - Sneasel
+
+D8 - Teddiursa
+
+D9 - Ursaring
+
+DA - Slugma
+
+DB - Magcargo
+
+DC - Swinub
+
+DD - Piloswine
+
+DE - Corsola
+
+DF - Remoraid
+
+E0 - Octillery
+
+E1 - Delibird
+
+E2 - Mantine
+
+E3 - Skarmory
+
+E4 - Houndour
+
+E5 - Houndoom
+
+E6 - Kingdra
+
+E7 - Phanpy
+
+E8 - Donphan
+
+E9 - Porygon2
+
+EA - Stantler
+
+EB - Smeargle
+
+EC - Tyrogue
+
+ED - Hitmontop
+
+EE - Smoochum
+
+EF - Elekid
+
+F0 - Magby
+
+F1 - Miltank
+
+F2 - Blissey
+
+F3 - Raikou
+
+F4 - Entei
+
+F5 - Suicune
+
+F6 - Larvitar
+
+F7 - Pupitar
+
+F8 - Tyranitar
+
+F9 - Lugia
+
+FA - Ho - oh
+
+FB - Celebi
+
+1er Pokémon tiene energía Infinita: - 910301dd - 91e702dd - 910303dd - 91e704dd
+
+1er Pokémon al Máximo Nivel: - 9164fedc
+
+1er Pokémon tiene Estadísticas Máximas: - 910305dd - 91e706dd - 910307dd - 91e708dd - 910309dd - 91e70add - 91030bdd - 91e70cdd - 91030ddd - 91e70edd
+
+
+2do Pokémon: Energía infinita: - 910331dd - 91e732dd - 910333dd - 91e734dd
+
+2do Pokémon: Máximo Nivel: - 91642edc
+
+2do Pokémon: Estadísticas Máximas: - 910335dd - 91e736dd - 910337dd - 91e738dd - 910339dd - 91e73add - 91033bdd - 91e73cdd - 91033ddd - 91e73edd
+
+3er Pokémon: Máximo Nivel: - 91645edc
+
+3er Pokémon: Estadísticas Máximas - 910365dd - 91e766dd - 910367dd - 91e768dd - 910369dd - 91036bdd - 91e76cdd - 91036ddd - 91e76edd
+
+4to Pokémon: Energía infinita - 910391dd - 91e792dd - 910393dd - 91e794dd
+
+4to Pokémon: Máximo Nivel: - 91648edc
+
+4to Pokémon: Estadísticas Máximas - 910395dd - 91e796dd - 910397dd - 91e798dd - 910399dd - 91e79add - 91039bdd - 91e79cdd - 91039ddd - 91e79edd
+
+
+5to Pokémon: Energía infinita - 9103c1dd - 91e7c2dd - 9103c3dd - 91e7c4dd
+
+5to Pokémon: Máximo Nivel: - 9164bedc
+
+5to Pokémon: Estadísticas Máximas - 9103c5dd - 91e7c6dd - 9103c7dd - 91e7c8dd - 9103c9dd - 91e7cadd - 9103cbdd - 91e7ccdd - 9103cddd - 91e7cedd
+
+6to Pokémon: Energía infinita - 9103f1dd - 91e7f2dd - 9103f3dd - 91e7f4dd
+
+6to Pokémon: Máximo Nivel: - 9164eedc
+
+6to Pokémon: Estadísticas Máximas - 9103f5dd - 91e7f6dd - 9103f7dd - 91e7f8dd - 9103f9dd - 91e7fadd - 9103fbdd - 91e7fcdd - 9103fddd - 91e7fedd
+
+Modificador de Pokeballs del Slot 1: - 91xxd8d8
+
+Modificador de Pokeballs del Slot 2: - 91xxdad8
+
+Modificador de Pokeballs del Slot 3: - 91xxdcd8
+
+Modificador de Pokeballs del Slot 4: - 91xxded8
+
+Modificador de Pokeballs del Slot 5: - 91xxe0d8
+
+Modificador de Pokeballs del Slot 6: - 91xxe2d8
+
+Modificador de Pokeballs del Slot 7: - 91xxe4d8
+
+Modificador de Pokeballs del Slot 8: - 91xxe6d8
+
+Modificador de Pokeballs del Slot 9: - 91xxe8d8
+
+Modificador de Pokeballs del Slot 10: - 91xxead8
+
+Modificador de Pokeballs del Slot 11: - 91xxecd8
+
+Modificador de Pokeballs del Slot 12: - 91xxeed8
+
+01. Master Ball 02. Ultra Ball 04. Great Ball 05. Poke Ball 9f. Level Ball a0. Lure Ball a1. Fast Ball a3. Light Ball a4. Friend Ball a5. Moon Ball a6. Love Ball b1. Park Ball 6a. Smoke Ball
+
+Comprar cualquier item: - 91xxf1d0
+01. Master Ball
+02. Ultra Ball
+
+03. BrightPowder
+
+04. Great Ball
+
+05. PokeBall
+
+06. Teru-Sama
+
+07. Bicycle
+
+08. Moon Stone
+
+09. Antidote
+
+0a. Burn Heal
+
+0b. Ice Heal
+
+0c. Awakening
+
+0d. Parlyz Heal
+
+0e. Full Restore
+
+0f. Max Potion
+
+10. Hyper Potion
+
+11. Super Potion
+
+12. Potion
+
+13. Escape Rope
+
+14. Repel
+
+15. Max Elixer
+
+16. Fire Stone
+
+17. ThunderStone
+
+18. Water Stone
+
+1a. HP Up
+
+1b. Protein
+
+1c. Iron
+
+1d. Carbos
+
+1e. Lucky Punch
+
+1f. Calcium
+
+20. Rare Candy
+
+21. X Accuracy
+
+22. Leaf Stone
+
+23. Metal Powder
+
+24. Nugget
+
+25. Poke Doll
+
+26. Full Heal
+
+27. Revive
+
+28. Max Revive
+
+29. Guard Spec
+
+2a. Super Repel
+
+2b. Max Repel
+
+2c Dire hit
+
+2e. Fresh Water
+
+2f. Soda Pop
+
+30. Lemonade
+
+31. X Attack
+
+33. X Defend
+
+34. X Speed
+
+35. X Special
+
+36. Coin Case
+37. Item Finder
+
+39. Exp Share
+
+3a. Old Rod
+
+3b. Good Rod
+
+3c. Silver Leaf
+
+3d. Super Rod
+
+3e. PP Up
+
+3f. Ether
+
+40. Max Ether
+
+41. Elixer
+
+42. Red Scale
+
+43. SecretPotion
+
+44. S.S. Ticket
+
+45. Mystery Egg
+
+46. Clear Bell
+
+47. Silver Wing
+
+48. Moomoo Milk
+
+49. Quick Claw
+
+4a. PsnCureBerry
+
+4b. Gold Leaf
+
+4c. Soft Sand
+
+4d. Sharp Beak
+
+4e. PrzCureBerry
+
+4f. Burnt Berry
+
+50. Ice Berry
+
+51. Poison Barb
+
+52. King's Rock
+
+53. Bitter Berry
+
+54. Mint Berry
+
+55. Red Apricorn
+
+56. TinyMushroom
+
+57. Big Mushroom
+
+58. SilverPowder
+
+59. Blu Apricorn
+
+5b. Amulet Coin
+
+5c. Ylw Apricorn
+
+5d .Grn Apricorn
+
+5e. Cleanse Tag
+
+5f. Mystic Water
+
+60. TwistedSpoon
+
+61. Wht Apricorn
+
+62. Blackbelt
+
+63. Blk Apricorn
+
+65. Pnk Apricorn
+
+66. Blackglasses
+
+67. SlowPoketail
+
+68. Pink Bow
+
+69. Stick
+
+6a. Smoke Ball
+
+6b. NeverMeltIce
+6c. Magnet
+
+6d. MiracleBerry
+
+6e. Pearl
+
+6f. Big Pearl
+
+70. Everstone
+
+71. Spell Tag
+
+72. RageCandybar
+
+73. GS Ball
+
+74. Blue Card
+
+75. Miracle Seed
+
+76. Thick Club
+
+77. Focus d
+
+79. EnergyPowder
+
+7a. Enery Root
+
+7b. Heal Powder
+
+7c. Revival Herb
+
+7d. Hard Stone
+
+7e. Lucky Egg
+
+7f. Card Key
+
+80. Machine Part
+
+81. Egg Ticket
+
+82. Lost Item
+
+83. Stardust
+
+84. Star Piece
+
+85. Basement Key
+
+86. Pass
+
+8a. Charcoal
+
+8b. Berry Juice
+
+8c. Scope Lens
+
+8f. Metal Coat
+
+90. Dragon Fang
+
+92. Leftovers
+
+96. MysteryBerry
+
+97. Dragon Scale
+
+98. Berserk Gene
+
+9c. Sacred Ash
+
+9d. Heavy Ball
+
+9e. Flower Mail
+
+9f. Level Ball
+
+a0. Lure Ball
+
+a1. Fast Ball
+
+a3. Light Ball
+
+a4. Friend Ball
+
+a5. Moon Ball
+
+a6. Love Ball
+
+a7. Normal
+
+a8. Gorgeous
+
+a9. Sun Stone
+
+aa. Polka Dot
+
+ac. Up-Grade
+ad. Berry
+
+ae. Gold Berry
+
+af. SquirtBottle
+
+b1. Park Ball
+
+b2. Rainbow Wing
+
+b4. Brick Piece
+
+b5. Suf Mail
+
+b6. LiteBlueMail
+
+b7. PortraitMail
+
+b8. Lovely Mail
+
+b9. Eon Mail
+
+ba. Morph Mail
+
+bb. BlueSky Mail
+
+bc. Music Mail
+
+bd. Mirage Mail
+
+bf. TM01
+
+c0. TM02
+
+c1. TM03
+
+c2. TM04
+
+c4. TM05
+
+c5. TM06
+
+c6. TM07
+
+c7. TM08
+
+c8. TM09
+
+c9. TM10
+
+ca. TM11
+
+cb. TM12
+
+cc. TM13
+
+cd. TM14
+
+ce. TM15
+
+cf. TM16
+
+d0. TM17
+
+d1. TM18
+
+d2. TM19
+
+d3. TM20
+
+d4. TM21
+
+d5. TM22
+
+d6. TM23
+
+d7. TM24
+
+d8. TM25
+
+d9. TM26
+
+da. TM27
+
+db. TM28
+
+dd. TM29
+
+de. TM30
+
+df. TM31
+
+e0. TM32
+
+e1. TM33
+
+e2. TM34
+
+e3. TM35
+e4. TM36
+
+e5. TM37
+
+e6. TM38
+
+e7. TM39
+
+e8. TM40
+
+e9. TM41
+
+ea. TM42
+
+eb. TM43
+
+ec. TM44
+
+ed. TM45
+
+ee. TM46
+
+ef. TM47
+
+f0. TM48
+
+f1. TM49
+
+f2. TM50
+
+f3. HM01
+
+f4. HM02
+
+f5. HM03
+
+f6. HM04
+
+f7. HM05
+
+f8. HM06
+
+f9. HM07
+
+fa. HM08
+
+fb. HM09
+
+fc. HM10
+
+fd. HM11
+
+fe. HM12
+
+
+Pokémon en Slot 1: Movimiento número 1: 91xxe1dc - Movimiento número 2: 91xxe2dc Movimiento número 3: 91xxe3dc - Movimiento número 4: 91xxe4dc ATAQUES
+
+Modificar Ataques:
+
+01 Pound 02 Karate Chop 03 Doubleslap 04 Comet Punch 05 Mega Punch 06 Pay Day 07 Fire Punch 08 Ice Punch 09 ThunderPunch 0a Scratch 0b Vicegrip 0c Guillotine 0d Razor Wind 0e Swords Dance 0f Cut 10 Gust 11 Wing Attack 12 WhirlWind 13 Fly 14 Bind 15 Slam 16 Vine Whip 17 Stomp 18 Doublekick 19 Mega Kick 1a Jump Kick 1b RollingKick 1c SandAttack 1d Headbutt 1e Horn Attack 1f Fury Attack 20 Horn Drill 21 Tackle 22 Body Slam 23 Wrap 24 Take Down 25 Thrash 26 Double Edge 27 Tail Whip 28 Poison Sting 29 Twineedle 2a Pin Missile 2b Leer 2c Bite 2d Growl 2f Sing 30 Supersonic 31 SonicBoom 32 Disable 33 Acid 34 Ember 35 FlameThrower 36 Mist 37 Water Gun 38 Hydro Pump 39 Surf 3a Ice Beam 3b Blizzard 3c Psybeam 3d Bubble Beam 3e Aurora Beam 3f Hyper Beam 40 Peck 41 Drill Peck 42 Submission 43 Low Kick 44 Counter 45 Seismic Toss 46 Strength 47 Absorb 48 Mega Drain 49 Leech Seed 4a Growth 4b Razor Leaf 4c Solarbeam 4d PoisonPowder 4e Stun Spore 4f Sleep Powder 50 Petal Dance 51 String Shot 52 Dragon Rage 53 Fire Spin 54 ThunderShock 55 ThunderBolt 56 Thunder Wave 57 Thunder 58 Rock Throw 59 Earthquake 5a Fissure 5b Dig 5c Toxic 5d Confusion 5e Psychih 5f Hypnosis 60 Meditate 61 Agility 62 Quick Attack 63 Rage 64 Teleport 65 Night Shade 66 Mimic 67 Screech 68 Double Team 69 Recover 6a Harden 6b Minimize 6c Smokescreen 6d Confuse Ray 6e Withdraw 6f Defense Curl 70 Barrier 71 Light Screen 72 Reflect 73 Haze 74 Focus Energy 75 Bide 76 Metronome 77 Mirror Move 78 SelfDestruct 79 Egg Bomb 7a Lick 7b Smog 7c Sludge 7d Bone Club 7e Fire Blast 7f Waterfall 80 Clamp 81 Swift 82 Skull Bash 83 Spike Cannon 84 Constrict 85 Amnesia 86 Kenisis 87 SoftBoiled 88 Hi Jump Kick 89 Glare 8a Dream Eater 8b Poison Gas 8c Barrage 8d Leech Life 8e Lovely Kiss 8f Sky Attack 90 Transform 91 Bubble 92 Dizzy Punch 93 Spore 94 Flash 95 Psywave 96 Splash 97 Acid Armor 98 Crabhammer 99 Explosion 9a Fury Swipes 9b Bonemerang 9c Rest 9d Rock Slide 9e Hyper Fang 9f Sharpen 10 Conversion a1 Tri Attack a2 Super Fang a3 Slash a4 Substitute a5 Struggle a6 Sketch a7 Triple Kick a8 Thief a9 Spider Web aa Mind Reader ab Nightmare ac Flame Wheel ad Snore ae Curse af Flail b0 Conversion2 b1 AeroBlast b2 Cotton Spore b3 Reversal b4 Spite b5 Powder Snow b6 Protect b7 Mach Punch b8 Scary Face b9 Faint Attack ba Sweet Kiss bb Belly Drum bc Sludge Bomb bd MudSlap be Octazooka bf Spikes c0 Zap Cannon c1 Foresight c2 Destiny Bond c3 Perish Song c4 Icy Wind c5 Detect c6 Bone Rush c7 LockOn c8 Outrage c9 Sandstorm ca Giga Drain cb Endure cc Charm cd Rollout ce False Swipe cf Swagger d0 Milk Drink d1 Spark d2 Fury Cutter d3 Steel Wing d4 Mean Look d5 Attract d6 Sleep Talk d7 Heal Bell d8 Return d9 Present da Frustration db Safeguard dc Pain Split dd Sacred Fire de Magnitude df DynamicPunch e0 Mega Horn e1 Dragonbreath e2 Baton Pass e3 Encore e4 Pursuit e5 Rapid Spin e6 Sweet Scent e7 Iron Tail e8 Metal Claw e9 Vital Throw ea Morning Sun eb Synthesis ec Moonlight ed Hidden Power ee Cross Chop ef Twister f0 Rain Dance f1 Sunny Day f2 Crunch f3 Mirror Coat f4 Psych Up f5 ExtremeSpeed f6 AncientPower f7 Shadow Ball f8 Future Sight f9 Rock Smash fa Whirlpool fb Beat Up 2e Roar
+
+
+
+1er Pokémon tiene energía Infinita: 910301dd | 91e702dd | 910303dd | 91e704dd
+
+1er Pokémon al Máximo Nivel: 9164fedc
+
+1er Pokémon tiene Estadísticas Máximas: 910305dd | 91e706dd | 910307dd | 91e708dd | 910309dd | 91e70add | 91030bdd | 91e70cdd | 91030ddd | 91e70edd
+
+1er Pokémon: Modificador de Pokémon: 91xxd8dc
+
+2do Pokémon: Energía infinita 910331dd | 91e732dd | 910333dd | 91e734dd
+
+2do Pokémon: Máximo Nivel: 91642edc
+
+2do Pokémon: Estadísticas Máximas 910335dd | 91e736dd | 910337dd | 91e738dd | 910339dd | 91e73add | 91033bdd | 91e73cdd | 91033ddd | 91e73edd
+
+2do Pokémon: Modicador de Pokémon: 91xxd9dc
+
+3er Pokémon: Máximo Nivel: 91645edc
+
+3er Pokémon: Estadísticas Máximas 910365dd | 91e766dd | 910367dd | 91e768dd | 910369dd | 91e76add | 91036bdd | 91e76cdd | 91036ddd | 91e76edd
+
+3er Pokémon: Modicador de Pokémon: 91xxdadc
+
+4to Pokémon: Energía infinita 910391dd | 91e792dd | 910393dd | 91e794dd
+
+4to Pokémon: Máximo Nivel: 91648edc
+
+4to Pokémon: Estadísticas Máximas 910395dd | 91e796dd | 910397dd | 91e798dd | 910399dd | 91e79add | 91039bdd | 91e79cdd | 91039ddd | 91e79edd
+
+4to Pokémon: Modicador de Pokémon: 91xxdbdc
+
+5to Pokémon: Energía infinita 9103c1dd | 91e7c2dd | 9103c3dd | 91e7c4dd
+
+5to Pokémon: Máximo Nivel: 9164bedc
+
+5to Pokémon: Estadísticas Máximas 9103c5dd | 91e7c6dd | 9103c7dd | 91e7c8dd | 9103c9dd | 91e7cadd | 9103cbdd | 91e7ccdd | 9103cddd | 91e7cedd
+
+5to Pokémon: Modicador de Pokémon: 91xxdcdc
+
+6to Pokémon: Energía infinita 9103f1dd | 91e7f2dd | 9103f3dd | 91e7f4dd
+
+6to Pokémon: Máximo Nivel: 9164eedc
+
+6to Pokémon: Estadísticas Máximas 9103f5dd | 91e7f6dd | 9103f7dd | 91e7f8dd | 9103f9dd | 91e7fadd | 9103fbdd | 91e7fcdd | 9103fddd | 91e7fedd
+
+6to Pokémon: Modicador de Pokémon: 91xxdddc
+
+Tener todas las Medallas: 91ff57d8 | 91ff58d8
+
+Dinero Infinito: 910f4ed8 | 91424fd8 | 913f50d8
+
+Capturar cualquier Pokémon: 91xx04d2
+
+Modificador del Nivel del Enemigo (En la Batalla): 91xx13d2
+
+Matar enemigo de un Golpe: 910017d2
+
+Todos los Pokémon en una Pokédex:
+
+910f99de | 91ff9ade | 91ff9bde | 91ff9cde | 91ff9dde | 91ff9ede 91ff9fde | 91ffa0de | 91ffa1de | 91ffa2de | 91ffa3de | 91ffa4de 91ffa5de | 91ffa6de | 91ffa7de | 91ffa8de | 91ffa9de | 91ffaade 91ffabde | 91ffacde | 91ffadde | 91ffaede | 91ffafde | 91ffb0de 91ffb1de | 91ffb2de | 91ffb3de | 91ffb4de | 91ffb5de | 91ffb6de 91ffb7de | 91ffb8de | 91ffb9de | 91ffbade | 91ffbbde | 91ffbcde 91ffbdde | 91ffbede | 91ffbfde | 91ffc0de | 91ffc1de | 91ffc2de 91ffc3de | 91ffc4de | 91ffc5de | 91ffc6de | 91ffc7de | 91ffc8de 91ffc9de | 91ffcade | 91ffcbde | 91ffccde | 91ffcdde | 91ffcede 91ffcfde | 91ffd0de | 91ffd1de | 91ffd2de | 91ffd3de | 91ffd4de 91ffd5de | 91ffd6de | 91ffd7de | 910fd8de
+
+Pokémon en Slot 1: Movimiento número 1: 91xxe1dc - Movimiento número 2: 91xxe2dc Movimiento número 3: 91xxe3dc - Movimiento número 4: 91xxe4dc
+
+Max PP: Slot 1er movimiento: 9163f6dc - Slot 2do movimiento: 9163f7dc Slot 3er movimiento: 9163f8dc - Slot 4to movimiento: 9163f9dc
+
+Pokémon en Slot 2: Max PP: Slot 1er movimiento: 916326dd - Slot 2do movimiento: 916327dd Slot 3er movimiento: 916328dd - Slot 4to movimiento: 916329dd
+
+Pokémon en Slot 3: Max PP: Slot 1er movimiento: 916356dd - Slot 2do movimiento: 916357dd Slot 3er movimiento: 916358dd - Slot 4to movimiento: 916359dd
+
+Pokémon en Slot 4: Max PP: Slot 1er movimiento: 916386dd - Slot 2do movimiento: 916387dd Slot 3er movimiento: 916388dd - Slot 4to movimiento: 916389dd
+
+Pokémon en Slot 5: Max PP: Slot 1er movimiento: 9163b6dd - Slot 2do movimiento: 9163b7dd Slot 3er movimiento: 9163b8dd - Slot 4to movimiento: 9163b9dd
+
+Pokémon en Slot 6: Max PP: Slot 1er movimiento: 9163e6dd - Slot 2do movimiento: 9163e7dd Slot 3er movimiento: 9163e8dd - Slot 4to movimiento: 9163e9dd
+
+
+
+
+Pokémon Modificar Niveles:
+
+00 00 01 01 02 02 03 03 04 04 06 06 07 07 08 08 09 09 0a 10 0b 11 0c 12 0d 13 0e 14 0f 15 10 16 11 17 12 18 13 19 14 20 15 21 16 22 17 23 18 24 19 25 1a 26 1b 27 1c 28 1d 29 1e 30 1f 31 20 32 21 33 22 34 23 35 24 36 25 37 26 38 27 39 28 40 29 41 2a 42 2b 43 2c 44 2d 45 2e 46 2f 47 30 48 31 49 32 50 33 51 34 52 35 53 36 54 37 55 38 56 39 57 3a 58 3b 59 3c 60 3d 61 3e 62 3f 63 40 64 41 65 42 66 43 67 44 68 45 69 46 70 47 71 48 72 49 73 4a 74 4b 75 4c 76 4d 77 4e 78 4f 79 50 80 51 81 52 82 53 83 54 84 55 85 56 86 57 87 58 88 59 89 5a 90 5b 91 5c 92 5d 93 5e 94 5f 95 60 96 61 97 62 98 63 99 64 100 65 101 66 102 67 103 68 104 69 105 6a 106 6b 107 6c 108 6d 109 6e 110 6f 111 70 112 71 113 72 114 73 115 74 116 75 117 76 118 77 119 78 120 79 121 7a 122 7b 123 7c 124 7d 125 7e 126 7f 127 80 128 81 129 82 130 83 131 84 132 85 133 86 134 87 135 88 136 89 137 8a 138 8b 139 8c 140 8d 141 8e 142 8f 143 90 144 91 145 92 146 93 147 94 148 95 149 96 150 97 151 98 152 99 153 9a 154 9b 155 9c 156 9d 157 9e 158 9f 159 a0 160 a1 161 a2 162 a3 163 a4 164 a5 165 a6 166 a7 167 a8 168 a9 169 aa 170 ab 171 ac 172 ad 173 ae 174 af 175 b0 176 b1 177 b2 178 b3 179 b4 180 b5 181 b6 182 b7 183 b8 184 b9 185 ba 186 bb 187 bc 188 bd 189 be 190 bf 191 c0 192 c1 193 c2 194 c3 195 c4 196 c5 197 c6 198 c7 199 c8 200 c9 201 ca 202 cb 203 cc 204 cd 205 ce 206 cf 207 d0 208 d1 209 d2 210 d3 211 d4 212 d5 213 d6 214 d7 215 d8 216 d9 217 da 218 db 219 dc 220 dd 221 de 222 df 223 e0 224 e1 225 e2 226 e3 227 e4 228 e5 229 e6 230 e7 231 e8 232 e9 233 ea 234 eb 235 ec 236 ed 237 ee 238 ef 239 f0 240 f1 241 f2 242 f3 243 f4 244 f5 245 f6 246 f7 267 f8 248 f9 249 fa 250 fb 251 fc 252 fd 253 fe 254 ff 255

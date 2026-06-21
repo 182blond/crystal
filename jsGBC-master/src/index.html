@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>jsGBC</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="jsGBC">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#b2e200">
+  <link rel="stylesheet" href="index.css">
+  <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+  <link rel="import" href="bower_components/jsgbc-ui/jsgbc-ui.html">
+</head>
+
+<body>
+  <jsgbc-ui loading>
+    <h1 slot="loading">Loading...</h1>
+    <canvas slot="lcd"></canvas>
+  </jsgbc-ui>
+
+  <section class="cheat-panel" id="cheat-panel">
+    <h3>Memory Cheats</h3>
+    <div class="cheat-form">
+      <label>
+        Name
+        <input id="cheat-name" type="text" placeholder="Infinite money" />
+      </label>
+      <label>
+        Address (hex)
+        <input id="cheat-address" type="text" placeholder="D84E" spellcheck="false" />
+      </label>
+      <label>
+        Value (hex)
+        <input id="cheat-value" type="text" placeholder="FF" spellcheck="false" />
+      </label>
+      <div class="cheat-actions">
+        <button id="cheat-write-once" type="button">Write once</button>
+        <button id="cheat-add" type="button">Add persistent cheat</button>
+      </div>
+    </div>
+    <p id="cheat-status" class="cheat-status"></p>
+    <ul id="cheat-list" class="cheat-list"></ul>
+  </section>
+
+  <script>
+    window.addEventListener("WebComponentsReady", function () {
+      window.WebComponentsReady = true;
+    });
+
+  </script>
+
+  <!-- inject:html -->
+  <!-- endinject -->
+</body>
+
+</html>

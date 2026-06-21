@@ -1,0 +1,23 @@
+{
+  productName: "jsGBC",
+  appId: "io.github.ardean.jsgbc",
+  copyright: "Copyright © 2017 ardean",
+  mac: {
+    category: "public.app-category.games"
+  },
+  nsis: {
+    oneClick: true,
+    perMachine: true
+  },
+  files: [
+    "app/**/*",
+    "package.json"
+  ],
+  fileAssociations: [{
+    ext: "gbc",
+    name: "GameBoy Color ROM"
+  }, {
+    ext: "gb",
+    name: "GameBoy ROM"
+  }]
+}

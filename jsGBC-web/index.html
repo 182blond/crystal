@@ -1,0 +1,240 @@
+<!doctype html>
+
+<html lang="en">
+
+
+
+<head>
+
+  <title>Pokémon Crystal</title>
+
+  <meta charset="utf-8" />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+
+  <meta name="theme-color" content="#2e1065" />
+
+  <meta name="mobile-web-app-capable" content="yes" />
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
+  <meta name="apple-mobile-web-app-title" content="jsGBC Web" />
+
+  <meta name="apple-mobile-web-app-status-bar-style" content="#2e1065">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+  <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+
+  <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+
+  <link rel="manifest" href="./manifest.json" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" />
+
+  <link rel="stylesheet" href="./styles/index.css" />
+
+
+
+  <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+
+  <link rel="import" href="./custom/jsgbc-ui.html" />
+
+</head>
+
+
+
+<body>
+
+  <div class="background"></div>
+
+
+
+  <div class="main" id="party-editor">
+    <div class="app-shell">
+
+      <main class="center-stage">
+
+        <div class="file-controls-hidden" aria-hidden="true">
+
+          <file-button id="insert-cartridge" title="Insert Cartridge">
+
+            <input type="file" accept=".gb,.gbc,.zip" />
+
+          </file-button>
+
+          <file-button id="download-save" class="disabled" title="Download Save">
+
+            <input type="file" accept=".sav" />
+
+          </file-button>
+
+          <file-button id="upload-save" class="disabled" title="Upload Save">
+
+            <input type="file" accept=".sav" />
+
+          </file-button>
+
+        </div>
+
+
+
+        <div class="emulator-scaler">
+
+          <div class="emulator-scaler__frame">
+
+            <jsgbc-ui loading>
+
+              <h1 slot="loading">Loading...</h1>
+
+              <canvas class="pixelated" slot="lcd"></canvas>
+
+            </jsgbc-ui>
+
+          </div>
+
+        </div>
+
+
+
+        <p id="party-editor-status" class="party-editor-status party-editor-status--hidden" hidden></p>
+
+      </main>
+
+
+
+      <aside class="side-panel side-panel--left">
+
+        <section class="party-block">
+
+          <header class="panel-header">
+
+            <h2 class="panel-header__title">Party</h2>
+
+            <span class="panel-header__badge">1 – 3</span>
+
+          </header>
+
+          <div id="party-slots-left" class="party-slots-grid"></div>
+
+        </section>
+
+
+
+        <section class="badge-block">
+
+          <header class="panel-header panel-header--compact">
+
+            <h2 class="panel-header__title">Johto</h2>
+
+          </header>
+
+          <div id="badges-johto" class="badge-grid"></div>
+
+        </section>
+
+
+
+        <section class="items-block items-block--collapsed" id="items-block">
+
+          <header class="panel-header panel-header--compact panel-header--toggle">
+
+            <button
+
+              type="button"
+
+              class="items-block__toggle"
+
+              id="items-block-toggle"
+
+              aria-expanded="false"
+
+              aria-controls="items-block-body"
+
+            >
+
+              <span class="panel-header__title">Bolsa</span>
+
+              <span class="items-block__chevron" aria-hidden="true">▾</span>
+
+            </button>
+
+          </header>
+
+          <div id="items-block-body" class="items-block__body" hidden>
+
+            <div id="items-panel" class="items-panel"></div>
+
+          </div>
+
+        </section>
+
+      </aside>
+
+
+
+      <aside class="side-panel side-panel--right">
+
+        <section class="party-block">
+
+          <header class="panel-header">
+
+            <h2 class="panel-header__title">Party</h2>
+
+            <span class="panel-header__badge">4 – 6</span>
+
+          </header>
+
+          <div id="party-slots-right" class="party-slots-grid"></div>
+
+        </section>
+
+
+
+        <section class="badge-block">
+
+          <header class="panel-header panel-header--compact">
+
+            <h2 class="panel-header__title">Kanto</h2>
+
+          </header>
+
+          <div id="badges-kanto" class="badge-grid"></div>
+
+        </section>
+
+      </aside>
+
+    </div>
+
+  </div>
+
+
+
+  <script>
+
+    window.addEventListener("WebComponentsReady", function () {
+
+      window.WebComponentsReady = true;
+
+    });
+
+  </script>
+
+  <script src="node_modules/jsgbc/dist/jsgbc-core.js"></script>
+
+  <script src="jsgbc-web.js"></script>
+
+</body>
+
+
+
+</html>
+
+

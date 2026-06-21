@@ -1,0 +1,1011 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<dom-module id="jsgbc-ui">
+  <template>
+    <style>
+      :host {
+        display: block;
+        font-family: "Outfit", "Segoe UI", system-ui, sans-serif;
+        --gb-shell-top: #2a1538;
+        --gb-shell-mid: #1a0b2e;
+        --gb-shell-base: #160a28;
+        --gb-shell-deep: #0a0612;
+        --gb-shell-glow: rgba(124, 58, 237, 0.1);
+      }
+
+      :host:not([no-pixelation]) ::shadow .jsgbc-ui-canvas {
+        image-rendering: optimizeSpeed;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: -o-crisp-edges;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: optimize-contrast;
+        image-rendering: crisp-edges;
+        image-rendering: pixelated;
+        -ms-interpolation-mode: nearest-neighbor;
+      }
+
+      :host ::shadow .jsgbc-ui-canvas {
+        @apply --layout-flex;
+      }
+
+      .jsgbc-ui-inner {
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+        height: 709px;
+        min-width: 400px;
+        min-height: 709px;
+        max-width: 400px;
+        max-height: 709px;
+        user-select: none;
+      }
+
+      /* —— Chassis: Gengar dark purple + playable-gameboy depth —— */
+      .jsgbc-ui-body {
+        margin-top: 2rem;
+        position: relative;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        height: 709px;
+        border-radius: 20% 20% 49% 49% / 2% 2% 6.5% 6.5%;
+        background-color: var(--gb-shell-base);
+        background-image:
+          radial-gradient(ellipse 82% 46% at 50% 2%, var(--gb-shell-glow) 0%, transparent 54%),
+          linear-gradient(
+            to right bottom,
+            rgba(124, 58, 237, 0.06) 0%,
+            transparent 34%
+          ),
+          linear-gradient(
+            165deg,
+            var(--gb-shell-top) 0%,
+            var(--gb-shell-mid) 24%,
+            var(--gb-shell-base) 52%,
+            #100818 78%,
+            var(--gb-shell-deep) 100%
+          );
+        box-shadow:
+          inset 1px 5px 5px -1px rgba(167, 139, 250, 0.22),
+          inset -1px -2px 5px -1px rgba(0, 0, 0, 0.72),
+          inset 0 -18px 36px -8px rgba(0, 0, 0, 0.52),
+          0 2px 2px rgba(0, 0, 0, 0.12),
+          0 6px 8px rgba(0, 0, 0, 0.18);
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .jsgbc-ui-body::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+        z-index: 0;
+        background:
+          radial-gradient(ellipse 115% 72% at 50% -6%, var(--gb-shell-glow) 0%, transparent 48%),
+          radial-gradient(ellipse 105% 58% at 50% 112%, rgba(0, 0, 0, 0.82) 0%, transparent 54%),
+          linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.42) 0%,
+            transparent 9%,
+            transparent 91%,
+            rgba(0, 0, 0, 0.42) 100%
+          );
+        box-shadow:
+          inset 0 3px 6px rgba(124, 58, 237, 0.16),
+          inset 0 -22px 38px -10px rgba(0, 0, 0, 0.72),
+          inset 10px 0 24px -14px rgba(0, 0, 0, 0.38),
+          inset -10px 0 24px -14px rgba(0, 0, 0, 0.38);
+      }
+
+      .jsgbc-ui-body::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+        z-index: 0;
+        box-shadow:
+          inset 0 0 48px 6px rgba(0, 0, 0, 0.38),
+          inset 0 1px 0 rgba(124, 58, 237, 0.14);
+      }
+
+      .jsgbc-ui-bezel {
+        position: relative;
+        z-index: 1;
+        flex-shrink: 0;
+        margin: 36px 24px 0;
+        padding: 20px 16px 18px;
+        border-radius: 3% 3% 20% 20% / 3% 3% 6.5% 6.5%;
+        background: #0d0d0d;
+        box-shadow:
+          inset 1px 2px 3px -1px rgba(255, 255, 255, 0.72),
+          inset 0 -12px 22px -4px rgba(0, 0, 0, 0.82),
+          inset 0 0 18px 3px rgba(0, 0, 0, 0.62),
+          0 1px 5px -1px rgba(0, 0, 0, 0.45);
+      }
+
+      .jsgbc-ui-bezel::before {
+        content: "";
+        position: absolute;
+        inset: 12px 10px 10px;
+        border-radius: 2% 2% 18% 18% / 2% 2% 5.5% 5.5%;
+        pointer-events: none;
+        z-index: 0;
+        box-shadow:
+          inset 0 8px 18px rgba(0, 0, 0, 0.88),
+          inset 0 0 28px rgba(0, 0, 0, 0.62),
+          inset 0 2px 0 rgba(255, 255, 255, 0.08);
+      }
+
+      .jsgbc-ui-bezel::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+        z-index: 0;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.14),
+          inset 0 -6px 14px rgba(0, 0, 0, 0.35);
+      }
+
+      .jsgbc-ui-screen-frame,
+      .jsgbc-ui-screen-frame-bottom {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        box-shadow: none;
+        border-radius: 0;
+      }
+
+      .jsgbc-ui-screen {
+        position: relative;
+        width: 233.33px;
+        height: 210px;
+        margin: 0 auto;
+        display: flex;
+        background: #0a0a0a;
+        border-radius: 4px;
+        overflow: hidden;
+        z-index: 1;
+        box-shadow:
+          inset 0 3px 8px rgba(0, 0, 0, 0.92),
+          inset 0 0 14px 4px rgba(0, 0, 0, 0.68),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+
+      .jsgbc-ui-lcd-viewport {
+        position: relative;
+        flex: 1;
+        display: flex;
+        background: linear-gradient(180deg, #9bbc0f 0%, #8bac0f 100%);
+        overflow: hidden;
+      }
+
+      .jsgbc-ui-lcd-viewport::before {
+        z-index: 2;
+        position: absolute;
+        content: "";
+        inset: 0;
+        background-image:
+          linear-gradient(
+            transparent 0%,
+            transparent calc(100% - 1px),
+            rgba(0, 0, 0, 0.55) calc(100% - 1px),
+            rgba(0, 0, 0, 0.55) 100%
+          ),
+          linear-gradient(
+            90deg,
+            transparent 0%,
+            transparent calc(100% - 1px),
+            rgba(0, 0, 0, 0.55) calc(100% - 1px),
+            rgba(0, 0, 0, 0.55) 100%
+          );
+        background-size: 3px 3px;
+        opacity: 0.14;
+        pointer-events: none;
+      }
+
+      .jsgbc-ui-lcd-viewport::after {
+        z-index: 3;
+        position: absolute;
+        content: "";
+        inset: 0;
+        background: rgba(15, 130, 55, 0.18);
+        backdrop-filter: blur(0.67px);
+        box-shadow:
+          inset 0 0 24px 8px rgba(0, 0, 0, 0.68),
+          inset 0 2px 6px rgba(0, 0, 0, 0.35);
+        pointer-events: none;
+      }
+
+      /* —— Display filters —— */
+      :host([display-filter="pixel"]) .jsgbc-ui-lcd-viewport::before {
+        opacity: 0.07;
+        background-size: 3px 3px;
+      }
+
+      :host([display-filter="pixel"]) .jsgbc-ui-lcd-viewport::after {
+        backdrop-filter: none;
+        background: transparent;
+        box-shadow: inset 0 0 14px 4px rgba(0, 0, 0, 0.42);
+      }
+
+      :host([display-filter="scan"]) .jsgbc-ui-lcd-viewport::before {
+        opacity: 0.24;
+        background-size: 2px 2px;
+      }
+
+      :host([display-filter="scan"]) .jsgbc-ui-lcd-viewport::after {
+        backdrop-filter: none;
+        background: rgba(15, 130, 55, 0.14);
+        box-shadow:
+          inset 0 0 20px 6px rgba(0, 0, 0, 0.58),
+          inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      }
+
+      :host([display-filter="smooth"]) .jsgbc-ui-lcd-viewport::before,
+      :host([display-filter="smooth"]) .jsgbc-ui-lcd-viewport::after {
+        display: none;
+      }
+
+      .jsgbc-ui-loading,
+      .jsgbc-ui-lcd {
+        position: relative;
+        z-index: 1;
+        flex: 1;
+        display: flex;
+      }
+
+      .jsgbc-ui-lcd {
+        display: none;
+      }
+
+      .jsgbc-ui-loading {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #a78bfa;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+      }
+
+      .jsgbc-ui-screen-frame-bottom {
+        position: relative;
+        z-index: 1;
+        flex-shrink: 0;
+        margin: 8px auto 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .jsgbc-ui-display-options {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .jsgbc-ui-speed-label,
+      .jsgbc-ui-filter-label {
+        color: #8b7aa8;
+        font-size: 8px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        opacity: 0.85;
+      }
+
+      .jsgbc-ui-speed-buttons,
+      .jsgbc-ui-filter-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+      }
+
+      .jsgbc-ui-speed-btn,
+      .jsgbc-ui-filter-btn {
+        min-width: 34px;
+        height: 22px;
+        padding: 0 8px;
+        border: 1px solid rgba(109, 40, 217, 0.45);
+        border-radius: 999px;
+        background: rgba(10, 6, 18, 0.72);
+        color: #c9b8ec;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        cursor: pointer;
+        box-shadow:
+          inset 0 1px 2px rgba(255, 255, 255, 0.18),
+          inset 0 -2px 4px rgba(0, 0, 0, 0.28);
+        transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+      }
+
+      .jsgbc-ui-speed-btn:hover,
+      .jsgbc-ui-filter-btn:hover {
+        border-color: rgba(139, 92, 246, 0.55);
+        color: #ede9fe;
+      }
+
+      .jsgbc-ui-speed-btn:active,
+      .jsgbc-ui-filter-btn:active {
+        transform: scale(0.96);
+      }
+
+      .jsgbc-ui-speed-btn.jsgbc-ui-speed-btn--active,
+      .jsgbc-ui-filter-btn.jsgbc-ui-filter-btn--active {
+        border-color: rgba(168, 85, 247, 0.62);
+        background: rgba(91, 33, 182, 0.55);
+        color: #f5f3ff;
+        box-shadow:
+          inset 0 1px 3px rgba(167, 139, 250, 0.22),
+          inset 0 -2px 5px rgba(0, 0, 0, 0.45);
+      }
+
+      .jsgbc-ui-filter-btn {
+        min-width: 40px;
+        padding: 0 6px;
+        font-size: 9px;
+      }
+
+      .jsgbc-ui-brand {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 124px;
+        height: 26px;
+        margin: 8px auto 0;
+        flex-shrink: 0;
+        border-radius: 45px;
+        border: 2px solid rgba(109, 40, 217, 0.55);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        color: #c4b5fd;
+        text-shadow:
+          -1px -1px 1.2px rgba(167, 139, 250, 0.35),
+          1px 1px 1px rgba(0, 0, 0, 0.55);
+        box-shadow:
+          inset 1px 2px 1px -1px rgba(124, 58, 237, 0.28),
+          inset -1px -2px 3px -1px rgba(0, 0, 0, 0.55);
+      }
+
+      /* —— Controls row —— */
+      .jsgbc-ui-middle {
+        position: relative;
+        z-index: 1;
+        flex: 1 1 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 34px;
+        min-height: 108px;
+        max-height: 124px;
+        margin-top: 2px;
+      }
+
+      .jsgbc-ui-dpad {
+        position: relative;
+        width: 104px;
+        height: 104px;
+        flex-shrink: 0;
+      }
+
+      .jsgbc-ui-dpad .jsgbc-ui-button,
+      .jsgbc-ui-dpad-empty {
+        position: absolute;
+        background: #1f1f1f;
+        cursor: pointer;
+        color: #000;
+        font-size: 11px;
+        font-weight: 800;
+        text-shadow: 1px 2px 1px rgba(255, 255, 255, 0.35);
+        box-shadow:
+          inset 3px 5px 5px -1px rgba(255, 255, 255, 0.45),
+          inset -3px -3px 5px -1px rgba(0, 0, 0, 1),
+          1px 1px 1px 2px rgba(0, 0, 0, 0.8),
+          2.5px 5px 5px 1px rgba(0, 0, 0, 0.85);
+        transition: filter 0.08s ease, transform 0.08s ease;
+      }
+
+      .jsgbc-ui-button-up {
+        width: 34px;
+        height: 34px;
+        top: 2px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 10% 10% 0 0;
+        box-shadow:
+          inset 3px 5px 5px -1px rgba(255, 255, 255, 0.5),
+          inset -3px -3px 5px -1px rgba(0, 0, 0, 1),
+          1px 1px 1px 2px rgba(0, 0, 0, 0.8),
+          2.5px 5px 5px 1px rgba(0, 0, 0, 0.9);
+      }
+
+      .jsgbc-ui-button-up:active {
+        filter: brightness(1.15);
+        transform: translateX(-50%) scale(0.97);
+      }
+
+      .jsgbc-ui-button-up::after {
+        content: "▲";
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+      }
+
+      .jsgbc-ui-dpad-middle {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 34px;
+        transform: translateY(-50%);
+        pointer-events: none;
+      }
+
+      .jsgbc-ui-dpad-middle .jsgbc-ui-button {
+        pointer-events: auto;
+      }
+
+      .jsgbc-ui-button-left {
+        width: 34px;
+        height: 34px;
+        left: 2px;
+        top: 0;
+        border-radius: 10% 0 0 10%;
+        box-shadow:
+          inset 3px 5px 5px -1px rgba(255, 255, 255, 0.45),
+          inset -3px -3px 5px -1px rgba(0, 0, 0, 1),
+          1px 1px 1px 2px rgba(0, 0, 0, 0.8),
+          2.5px 5px 5px 1px rgba(0, 0, 0, 0.85);
+      }
+
+      .jsgbc-ui-button-left::after {
+        content: "◀";
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+      }
+
+      .jsgbc-ui-dpad-empty {
+        width: 36px;
+        height: 36px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        cursor: default;
+        box-shadow:
+          inset 2px 3px 5px -1px rgba(255, 255, 255, 0.28),
+          inset -2px -3px 5px -1px rgba(0, 0, 0, 0.95);
+      }
+
+      .jsgbc-ui-button-right {
+        width: 34px;
+        height: 34px;
+        right: 2px;
+        top: 0;
+        border-radius: 0 10% 10% 0;
+        box-shadow:
+          inset -1px 3px 5px -1px rgba(255, 255, 255, 0.45),
+          inset -3px -3px 5px -1px rgba(0, 0, 0, 1),
+          1px 1px 1px 2px rgba(0, 0, 0, 0.8),
+          2.5px 5px 5px 1px rgba(0, 0, 0, 0.85);
+      }
+
+      .jsgbc-ui-button-right::after {
+        content: "▶";
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+      }
+
+      .jsgbc-ui-button-down {
+        width: 34px;
+        height: 34px;
+        bottom: 2px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 0 0 10% 10%;
+        box-shadow:
+          inset 3px 0 5px -1px rgba(255, 255, 255, 0.45),
+          inset -3px -3px 5px -1px rgba(0, 0, 0, 1),
+          1px 1px 1px 2px rgba(0, 0, 0, 0.8),
+          2.5px 5px 5px 1px rgba(0, 0, 0, 0.85);
+      }
+
+      .jsgbc-ui-button-down::after {
+        content: "▼";
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+      }
+
+      .jsgbc-ui-button-down:active {
+        filter: brightness(1.15);
+        transform: translateX(-50%) scale(0.97);
+      }
+
+      .jsgbc-ui-button-left:active,
+      .jsgbc-ui-button-right:active {
+        filter: brightness(1.15);
+        transform: scale(0.97);
+      }
+
+      .jsgbc-ui-buttons-right {
+        position: relative;
+        width: 104px;
+        height: 104px;
+        flex-shrink: 0;
+        transform: translateY(6px);
+      }
+
+      .jsgbc-ui-button-a,
+      .jsgbc-ui-button-b {
+        position: absolute;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: #1f1f1f;
+        cursor: pointer;
+        color: #000;
+        text-align: center;
+        box-shadow:
+          inset 3px 5px 5px -1px rgba(255, 255, 255, 0.5),
+          inset -3px -3px 5px -1px rgba(0, 0, 0, 1),
+          1px 1px 1px 2px rgba(0, 0, 0, 0.8),
+          2.5px 5px 5px 1px rgba(0, 0, 0, 0.9);
+        transition: filter 0.08s ease, transform 0.08s ease;
+      }
+
+      .jsgbc-ui-button-a:active,
+      .jsgbc-ui-button-b:active {
+        filter: brightness(1.15);
+        transform: scale(0.96);
+      }
+
+      .jsgbc-ui-buttons-right .jsgbc-ui-button-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        font-size: 19px;
+        font-weight: 800;
+        text-shadow: 1px 2px 1px rgba(255, 255, 255, 0.5);
+        padding-right: 4px;
+        padding-top: 2px;
+      }
+
+      .jsgbc-ui-button-a {
+        top: 0;
+        right: 0;
+      }
+
+      .jsgbc-ui-button-b {
+        bottom: 0;
+        left: 0;
+        transform: translateY(-55%);
+      }
+
+      .jsgbc-ui-button-b:active {
+        filter: brightness(1.15);
+        transform: translateY(-55%) scale(0.96);
+      }
+
+      /* —— Start / Select —— */
+      .jsgbc-ui-bottom {
+        position: relative;
+        z-index: 1;
+        flex-shrink: 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 24px;
+        margin-top: 0;
+        padding-bottom: 18px;
+      }
+
+      .jsgbc-ui-select,
+      .jsgbc-ui-start {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .jsgbc-ui-bottom-label {
+        margin-top: 8px;
+        font-size: 8px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        color: #8b7aa8;
+        text-shadow:
+          -1px -1px 1.2px rgba(124, 58, 237, 0.28),
+          1px 1px 1px rgba(0, 0, 0, 0.45);
+      }
+
+      .jsgbc-ui-button-select,
+      .jsgbc-ui-button-start {
+        width: 42px;
+        height: 14px;
+        border-radius: 30%;
+        background: #111;
+        cursor: pointer;
+        box-shadow:
+          inset 1px 5px 7px -1px rgba(255, 255, 255, 0.6),
+          inset -3px -3px 5px -1px rgba(0, 0, 0, 1),
+          0 0 1px 1px rgba(0, 0, 0, 0.8),
+          2.5px 4px 5px -1px rgba(0, 0, 0, 0.7);
+        transition: filter 0.08s ease, transform 0.08s ease;
+      }
+
+      .jsgbc-ui-button-select:active,
+      .jsgbc-ui-button-start:active {
+        filter: brightness(1.2);
+        transform: scale(0.96);
+      }
+
+      /* —— Speaker grille —— */
+      .jsgbc-ui-speaker {
+        position: absolute;
+        right: 20px;
+        bottom: 22px;
+        width: 64px;
+        height: 64px;
+        transform: skew(-2deg, -7deg) rotate(-5deg);
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 4px 3px;
+        align-content: center;
+        pointer-events: none;
+        opacity: 0.75;
+        z-index: 1;
+      }
+
+      .jsgbc-ui-screen-frame {
+        position: relative;
+        z-index: 1;
+      }
+
+      .jsgbc-ui-middle,
+      .jsgbc-ui-bottom,
+      .jsgbc-ui-brand,
+      .jsgbc-ui-screen-frame-bottom,
+      .jsgbc-ui-bezel {
+        position: relative;
+        z-index: 1;
+      }
+
+      .jsgbc-ui-speaker-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #5b21b6;
+        box-shadow:
+          inset -1px -2px 1px -1px rgba(167, 139, 250, 0.35),
+          inset 1px 1px 1px -1px rgba(0, 0, 0, 0.65);
+      }
+
+      .jsgbc-ui-speaker-dot--dark {
+        background: rgba(0, 0, 0, 0.55);
+        box-shadow:
+          inset -1px -1px 1px -1px rgba(255, 255, 255, 0.55),
+          inset 1px 1px 1px -1px rgba(0, 0, 0, 0.95);
+      }
+
+      .jsgbc-ui-body-end {
+        display: none;
+      }
+
+      .jsgbc-ui.jsgbc-ui-fullscreen::before {
+        content: "";
+        background-color: #0c0618;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+
+      .jsgbc-ui-fullscreen .jsgbc-ui-screen {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+      }
+
+      @media (min-aspect-ratio: 160 / 144) {
+        .jsgbc-ui-fullscreen .jsgbc-ui-screen {
+          top: 0;
+          left: calc((100vw - 111.11vh) / 2);
+          height: 100vh;
+          width: 111.11vh;
+        }
+
+        .jsgbc-ui-fullscreen .jsgbc-ui-lcd-viewport::before {
+          background-size: 1vh 1vh;
+        }
+      }
+
+      @media (max-aspect-ratio: 160 / 144) {
+        .jsgbc-ui-fullscreen .jsgbc-ui-screen {
+          top: calc((100vh - 90vw) / 2);
+          left: 0;
+          height: 90vw;
+          width: 100vw;
+        }
+
+        .jsgbc-ui-fullscreen .jsgbc-ui-lcd-viewport::before {
+          background-size: 1vw 1vw;
+        }
+      }
+    </style>
+
+    <div class="jsgbc-ui-inner" id="inner">
+      <div class="jsgbc-ui-body">
+        <div class="jsgbc-ui-bezel">
+          <div class="jsgbc-ui-screen-frame">
+            <div class="jsgbc-ui-screen" id="screen">
+              <div class="jsgbc-ui-lcd-viewport">
+                <div class="jsgbc-ui-loading" id="loading">
+                  <slot name="loading"></slot>
+                </div>
+                <div class="jsgbc-ui-lcd" id="lcd">
+                  <slot name="lcd"></slot>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="jsgbc-ui-screen-frame-bottom">
+          <div class="jsgbc-ui-display-options">
+            <div class="jsgbc-ui-speed-label">Speed</div>
+            <div class="jsgbc-ui-speed-buttons">
+              <button type="button" class="jsgbc-ui-speed-btn jsgbc-ui-speed-btn--active" data-speed="1">×1</button>
+              <button type="button" class="jsgbc-ui-speed-btn" data-speed="2">×2</button>
+              <button type="button" class="jsgbc-ui-speed-btn" data-speed="4">×4</button>
+              <button type="button" class="jsgbc-ui-speed-btn" data-speed="8">×8</button>
+            </div>
+          </div>
+          <div class="jsgbc-ui-display-options">
+            <div class="jsgbc-ui-filter-label">Filtro</div>
+            <div class="jsgbc-ui-filter-buttons">
+              <button type="button" class="jsgbc-ui-filter-btn" data-filter="pixel">Pixel</button>
+              <button type="button" class="jsgbc-ui-filter-btn" data-filter="lcd">LCD</button>
+              <button type="button" class="jsgbc-ui-filter-btn jsgbc-ui-filter-btn--active" data-filter="scan">Scan</button>
+              <button type="button" class="jsgbc-ui-filter-btn" data-filter="smooth">Suave</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="jsgbc-ui-brand">Nintendo</div>
+
+        <div class="jsgbc-ui-middle">
+          <div class="jsgbc-ui-dpad">
+            <div class="jsgbc-ui-button jsgbc-ui-dpad-button jsgbc-ui-button-up" id="up"></div>
+            <div class="jsgbc-ui-dpad-middle">
+              <div class="jsgbc-ui-button jsgbc-ui-dpad-button jsgbc-ui-button-left" id="left"></div>
+              <div class="jsgbc-ui-dpad-empty"></div>
+              <div class="jsgbc-ui-button jsgbc-ui-dpad-button jsgbc-ui-button-right" id="right"></div>
+            </div>
+            <div class="jsgbc-ui-button jsgbc-ui-dpad-button jsgbc-ui-button-down" id="down"></div>
+          </div>
+
+          <div class="jsgbc-ui-buttons-right">
+            <div class="jsgbc-ui-button jsgbc-ui-button-a" id="a">
+              <div class="jsgbc-ui-button-label">A</div>
+            </div>
+            <div class="jsgbc-ui-button jsgbc-ui-button-b" id="b">
+              <div class="jsgbc-ui-button-label">B</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="jsgbc-ui-bottom">
+          <div class="jsgbc-ui-select">
+            <div class="jsgbc-ui-button jsgbc-ui-button-select" id="select"></div>
+            <div class="jsgbc-ui-bottom-label">SELECT</div>
+          </div>
+          <div class="jsgbc-ui-start">
+            <div class="jsgbc-ui-button jsgbc-ui-button-start" id="start"></div>
+            <div class="jsgbc-ui-bottom-label">START</div>
+          </div>
+        </div>
+
+        <div class="jsgbc-ui-speaker" aria-hidden="true">
+          <span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span>
+          <span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot"></span>
+          <span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span>
+          <span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span>
+          <span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span>
+          <span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot"></span>
+          <span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot"></span>
+          <span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span><span class="jsgbc-ui-speaker-dot"></span><span class="jsgbc-ui-speaker-dot jsgbc-ui-speaker-dot--dark"></span>
+        </div>
+      </div>
+      <div class="jsgbc-ui-body-end"></div>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      is: "jsgbc-ui",
+      properties: {
+        loading: {
+          type: Boolean,
+          observer: "_loadingChanged"
+        },
+        fullscreen: {
+          type: Boolean,
+          observer: "_fullscreenChanged",
+          value: false
+        },
+        emulationSpeed: {
+          type: Number,
+          value: 1,
+          observer: "_emulationSpeedChanged"
+        },
+        displayFilter: {
+          type: String,
+          value: "scan",
+          reflectToAttribute: true,
+          observer: "_displayFilterChanged"
+        }
+      },
+      listeners: {
+        "up.down": "_handleDown",
+        "up.up": "_handleUp",
+        "right.down": "_handleDown",
+        "right.up": "_handleUp",
+        "down.down": "_handleDown",
+        "down.up": "_handleUp",
+        "left.down": "_handleDown",
+        "left.up": "_handleUp",
+        "a.down": "_handleDown",
+        "a.up": "_handleUp",
+        "b.down": "_handleDown",
+        "b.up": "_handleUp",
+        "start.down": "_handleDown",
+        "start.up": "_handleUp",
+        "select.down": "_handleDown",
+        "select.up": "_handleUp"
+      },
+      attached: function () {
+        this.fullscreenClassName = "jsgbc-ui-fullscreen";
+        this.innerElement = this.$.inner;
+        this.screenElement = this.$.screen;
+        this.lcdElement = this.$.lcd.querySelector("*");
+        this.lcdElement.classList.add("jsgbc-ui-canvas");
+        this._loadingChanged(this.loading);
+        this._fullscreenChanged(this.fullscreen);
+        this._bindSpeedButtons();
+        this._bindFilterButtons();
+        this._emulationSpeedChanged(this.emulationSpeed);
+        this._displayFilterChanged(this.displayFilter);
+      },
+      _bindSpeedButtons: function () {
+        var self = this;
+        var buttons = this.querySelectorAll(".jsgbc-ui-speed-btn");
+
+        Array.prototype.forEach.call(buttons, function (button) {
+          button.addEventListener("click", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            var speed = parseInt(button.getAttribute("data-speed"), 10);
+            if (!speed || speed === self.emulationSpeed) {
+              return;
+            }
+
+            self.emulationSpeed = speed;
+            self.fire("speed-change", { speed: speed });
+          });
+        });
+      },
+      _emulationSpeedChanged: function (speed) {
+        var buttons = this.querySelectorAll(".jsgbc-ui-speed-btn");
+
+        Array.prototype.forEach.call(buttons, function (button) {
+          var value = parseInt(button.getAttribute("data-speed"), 10);
+          button.classList.toggle(
+            "jsgbc-ui-speed-btn--active",
+            value === speed
+          );
+        });
+      },
+      _bindFilterButtons: function () {
+        var self = this;
+        var buttons = this.querySelectorAll(".jsgbc-ui-filter-btn");
+
+        Array.prototype.forEach.call(buttons, function (button) {
+          button.addEventListener("click", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            var filter = button.getAttribute("data-filter");
+            if (!filter || filter === self.displayFilter) {
+              return;
+            }
+
+            self.displayFilter = filter;
+            self.fire("display-filter-change", { filter: filter });
+          });
+        });
+      },
+      _displayFilterChanged: function (filter) {
+        if (filter === "smooth") {
+          this.setAttribute("no-pixelation", "");
+        } else {
+          this.removeAttribute("no-pixelation");
+        }
+
+        var buttons = this.querySelectorAll(".jsgbc-ui-filter-btn");
+
+        Array.prototype.forEach.call(buttons, function (button) {
+          var value = button.getAttribute("data-filter");
+          button.classList.toggle(
+            "jsgbc-ui-filter-btn--active",
+            value === filter
+          );
+        });
+      },
+      _loadingChanged: function (newValue) {
+        if (!this.innerElement) return;
+        if (newValue) {
+          this.$.loading.style.display = "flex";
+          this.$.lcd.style.display = "none";
+          this.lcdElement.style.display = "none";
+        } else {
+          this.$.loading.style.display = "none";
+          this.$.lcd.style.display = "flex";
+          this.lcdElement.style.display = "flex";
+        }
+      },
+      _fullscreenChanged: function (newValue) {
+        if (!this.innerElement) return;
+        var hasClass = this.innerElement.classList.contains(this.fullscreenClassName);
+        if (newValue && !hasClass) {
+          this.innerElement.classList.add(this.fullscreenClassName);
+        } else if (!newValue && hasClass) {
+          this.innerElement.classList.remove(this.fullscreenClassName);
+        }
+      },
+      _handleDown: function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.fire("down", { button: e.currentTarget.id });
+        return false;
+      },
+      _handleUp: function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.fire("up", { button: e.currentTarget.id });
+        return false;
+      }
+    });
+
+  </script>
+</dom-module>
