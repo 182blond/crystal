@@ -38,7 +38,6 @@ jobs:
           npm install --ignore-scripts
           npx bower install --allow-root
           npm run build:pages
-          touch docs/.nojekyll
 
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -28,11 +28,7 @@ for (const relativePath of requiredPaths) {
 }
 
 console.log("If bower files are missing, run: npx bower install");
-console.log("If jsgbc-core is missing, run: cd ../jsGBC-core && npx webpack --config webpack.prod.js");
-
-app.get("/jsgbc-core.js", (_req, res) => {
-  res.sendFile(path.join(root, "node_modules/jsgbc/dist/jsgbc-core.js"));
-});
+console.log("If jsgbc-core is missing, run: npm run prestart");
 
 app.use(express.static(root));
 
@@ -57,10 +53,7 @@ compiler.watch({ ignored: /node_modules/ }, (error, stats) => {
 });
 
 function listen(port) {
-  const server = app.listen(port, "0.0.0.0", () => {
-    console.log("jsGBC-web dev server running at http://localhost:" + port);
-    console.log("Serving from " + root);
-  });
+  const server = require("http").createServer(app);
 
   server.on("error", (error) => {
     if (error.code === "EADDRINUSE") {
@@ -84,6 +77,11 @@ function listen(port) {
 
     console.error(error.message || error);
     process.exit(1);
+  });
+
+  server.listen(port, "0.0.0.0", () => {
+    console.log("jsGBC-web dev server running at http://localhost:" + port);
+    console.log("Serving from " + root);
   });
 }
 

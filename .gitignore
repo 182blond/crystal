@@ -9,6 +9,7 @@ node_modules/
 bower_components/
 dist/
 *.log
+jsGBC-web/jsgbc-core.js
 
 # OS / IDE
 .DS_Store
