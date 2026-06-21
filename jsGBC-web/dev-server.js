@@ -30,6 +30,10 @@ for (const relativePath of requiredPaths) {
 console.log("If bower files are missing, run: npx bower install");
 console.log("If jsgbc-core is missing, run: cd ../jsGBC-core && npx webpack --config webpack.prod.js");
 
+app.get("/jsgbc-core.js", (_req, res) => {
+  res.sendFile(path.join(root, "node_modules/jsgbc/dist/jsgbc-core.js"));
+});
+
 app.use(express.static(root));
 
 compiler.watch({ ignored: /node_modules/ }, (error, stats) => {
