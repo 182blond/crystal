@@ -27,8 +27,13 @@ export interface BadgeRegionSyncState {
   pendingCount: number;
 }
 
-const STABLE_READS_REQUIRED = 3;
+const STABLE_READS_REQUIRED = 2;
 const CLEAR_BADGES_READS_REQUIRED = 4;
+const INCREASE_READS_REQUIRED = 1;
+
+function isBadgeSuperset(incoming: number, previous: number): boolean {
+  return (incoming & previous) === previous;
+}
 
 function countBits(value: number): number {
   let count = 0;
@@ -59,6 +64,13 @@ function mapBadges(
       earned: (badgeByte & (1 << definition.bit)) !== 0
     };
   });
+}
+
+export function mapBadgesFromByte(
+  definitions: BadgeDefinition[],
+  badgeByte: number
+): BadgeState[] {
+  return mapBadges(definitions, badgeByte);
 }
 
 export function createBadgeRegionSyncState(): BadgeRegionSyncState {
@@ -114,7 +126,10 @@ export function acceptRegionByte(
   }
 
   let requiredReads = STABLE_READS_REQUIRED;
-  if (incoming === 0 && previous !== 0) {
+
+  if (isBadgeSuperset(incoming, previous) && incoming !== previous) {
+    requiredReads = INCREASE_READS_REQUIRED;
+  } else if (incoming === 0 && previous !== 0) {
     requiredReads = CLEAR_BADGES_READS_REQUIRED;
   } else if (countBitChanges(previous, incoming) > 1) {
     requiredReads = STABLE_READS_REQUIRED + 1;

@@ -4,6 +4,7 @@ import {
   BadgeRegionSyncState,
   createBadgeRegionSyncState,
   countEarnedBadges,
+  mapBadgesFromByte,
   readBadgeSnapshot,
   BadgeState
 } from "./badge-memory";
@@ -130,12 +131,24 @@ function refreshBadges(
 
     if (acceptRegionByte(snapshot.johtoByte, syncState.johto, force)) {
       syncState.johto.byte = snapshot.johtoByte;
-      updateBadgeGrid(johtoGrid, snapshot.johto);
     }
 
     if (acceptRegionByte(snapshot.kantoByte, syncState.kanto, force)) {
       syncState.kanto.byte = snapshot.kantoByte;
-      updateBadgeGrid(kantoGrid, snapshot.kanto);
+    }
+
+    if (syncState.johto.byte !== null) {
+      updateBadgeGrid(
+        johtoGrid,
+        mapBadgesFromByte(JOHTO_BADGES, syncState.johto.byte)
+      );
+    }
+
+    if (syncState.kanto.byte !== null) {
+      updateBadgeGrid(
+        kantoGrid,
+        mapBadgesFromByte(KANTO_BADGES, syncState.kanto.byte)
+      );
     }
 
     updateBadgeCount(countElement, syncState);
@@ -163,6 +176,17 @@ export function resetBadgeSync(
   }
 }
 
+export function forceBadgeRefresh(
+  gameboy: GameBoyInstance,
+  root: HTMLElement
+) {
+  if (!activeBadgeSyncState) {
+    return;
+  }
+
+  refreshBadges(gameboy, root, activeBadgeSyncState, true);
+}
+
 export default function bindBadgePanel(
   gameboy: GameBoyInstance,
   root: HTMLElement
@@ -185,6 +209,16 @@ export default function bindBadgePanel(
   renderBadgeGrid(johtoGrid, JOHTO_BADGES, "johto");
   renderBadgeGrid(kantoGrid, KANTO_BADGES, "kanto");
   renderLockedBadges(root);
+
+  if (gameboy.cartridge) {
+    refreshBadges(gameboy, root, syncState, true);
+  }
+
+  window.setTimeout(function() {
+    if (gameboy.cartridge) {
+      refreshBadges(gameboy, root, syncState, true);
+    }
+  }, 2000);
 
   window.setInterval(function() {
     refreshBadges(gameboy, root, syncState, false);

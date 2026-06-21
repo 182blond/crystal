@@ -23,6 +23,7 @@ import {
   ensurePartySlotSearchSelects,
   setSearchableSelectValue
 } from "./party-search-selects";
+import { forceBadgeRefresh } from "./badge-panel";
 
 const SYNC_INTERVAL_MS = 400;
 
@@ -1042,6 +1043,7 @@ export default async function bindPartyEditor(
 
     if (manual) {
       setStatus("Synced " + partyCount + " Pokémon from memory.");
+      forceBadgeRefresh(gameboy, root);
     }
   }
 
