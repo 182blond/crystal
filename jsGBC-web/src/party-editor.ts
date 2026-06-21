@@ -11,7 +11,12 @@ import {
   isStablePartySnapshot,
   isStableSlotSnapshot,
   readPartySnapshot,
-  readSlotLevelInput
+  readSlotHp,
+  readSlotLevelInput,
+  computeHpBarPixels,
+  getHpBarTier,
+  HP_BAR_COLORS,
+  HP_BAR_LENGTH_PX
 } from "./party-memory";
 import { prepareSlotApply } from "./party-apply";
 import { mergePartyPatches, MemoryPatchInput, buildPartyCountPatches, applyMemoryPatchesOnce } from "./party-patches";
@@ -23,7 +28,7 @@ import {
   ensurePartySlotSearchSelects,
   setSearchableSelectValue
 } from "./party-search-selects";
-import { forceBadgeRefresh } from "./badge-panel";
+import { syncBadgesFromRam } from "./badge-panel";
 
 const SYNC_INTERVAL_MS = 400;
 
@@ -191,6 +196,54 @@ function readSlotConfig(root: HTMLElement, slot: number): PartySlotConfig {
   };
 }
 
+function updateSlotHpDisplay(
+  card: HTMLElement,
+  occupied: boolean,
+  currentHp: number,
+  maxHp: number
+) {
+  const hpBlock = card.querySelector(".party-slot-hp") as HTMLElement;
+  const hpFill = card.querySelector(".party-slot-hp-fill") as HTMLElement;
+  const hpText = card.querySelector(".party-slot-hp-text") as HTMLElement;
+
+  if (!hpBlock || !hpFill || !hpText) {
+    return;
+  }
+
+  if (!occupied || maxHp <= 0) {
+    hpBlock.hidden = true;
+    hpFill.style.width = "0%";
+    hpFill.style.backgroundColor = "";
+    hpText.style.color = "";
+    return;
+  }
+
+  const tier = getHpBarTier(currentHp, maxHp);
+  const pixels = computeHpBarPixels(currentHp, maxHp);
+  const fillPercent = Math.max(0, Math.min(100, (pixels / HP_BAR_LENGTH_PX) * 100));
+  const color = HP_BAR_COLORS[tier];
+
+  hpBlock.hidden = false;
+  hpBlock.dataset.hpTier = tier;
+  hpFill.style.width = fillPercent + "%";
+  hpFill.style.backgroundColor = color;
+  hpText.textContent = currentHp + " / " + maxHp;
+  hpText.style.color = color;
+
+  hpFill.classList.remove(
+    "party-slot-hp-fill--high",
+    "party-slot-hp-fill--mid",
+    "party-slot-hp-fill--critical"
+  );
+  hpBlock.classList.remove(
+    "party-slot-hp--high",
+    "party-slot-hp--mid",
+    "party-slot-hp--critical"
+  );
+  hpFill.classList.add("party-slot-hp-fill--" + tier);
+  hpBlock.classList.add("party-slot-hp--" + tier);
+}
+
 function updateSlotSummary(card: HTMLElement, snapshot: PartySlotSnapshot) {
   const level = card.querySelector(".party-slot-level") as HTMLElement;
   const shinyBadge = card.querySelector(".party-slot-shiny-badge") as HTMLElement;
@@ -201,6 +254,30 @@ function updateSlotSummary(card: HTMLElement, snapshot: PartySlotSnapshot) {
 
   if (shinyBadge) {
     shinyBadge.hidden = !snapshot.occupied || !snapshot.shiny;
+  }
+
+  if (snapshot.occupied && snapshot.maxHp > 0) {
+    updateSlotHpDisplay(card, true, snapshot.currentHp, snapshot.maxHp);
+  } else if (!snapshot.occupied) {
+    updateSlotHpDisplay(card, false, 0, 0);
+  }
+}
+
+function syncPartyHpFromGame(gameboy: GameBoyInstance, root: HTMLElement) {
+  for (let slot = 1; slot <= 6; slot++) {
+    const card = root.querySelector(
+      ".party-slot-card[data-slot='" + slot + "']"
+    ) as HTMLElement;
+    if (!card) {
+      continue;
+    }
+
+    const hp = readSlotHp(gameboy, slot);
+    if (!hp) {
+      continue;
+    }
+
+    updateSlotHpDisplay(card, true, hp.currentHp, hp.maxHp);
   }
 }
 
@@ -367,6 +444,10 @@ function appendSlotCard(
     '<span class="party-slot-level">—</span>' +
     '<span class="party-slot-shiny-badge" hidden>✦ Shiny</span>' +
     "</span>" +
+    '<div class="party-slot-hp" hidden>' +
+    '<div class="party-slot-hp-track"><div class="party-slot-hp-fill"></div></div>' +
+    '<span class="party-slot-hp-text"></span>' +
+    "</div>" +
     "</div>" +
     '<span class="party-slot-expand-hint">Edit</span>' +
     "</button>" +
@@ -467,6 +548,8 @@ function copySlotSnapshot(snapshot: PartySlotSnapshot): PartySlotSnapshot {
     speciesId: snapshot.speciesId,
     shiny: snapshot.shiny,
     level: snapshot.level,
+    currentHp: snapshot.currentHp,
+    maxHp: snapshot.maxHp,
     moves: [
       snapshot.moves[0],
       snapshot.moves[1],
@@ -951,7 +1034,6 @@ export default async function bindPartyEditor(
     "#party-apply-all"
   ) as HTMLButtonElement;
   const clearButton = root.querySelector("#party-clear") as HTMLButtonElement;
-  const syncButton = root.querySelector("#party-sync-now") as HTMLButtonElement;
   const activeSlots = new Map<number, ActiveSlotOverride>();
   const dirtySlots = new Set<number>();
   const lastGoodBySlot = new Map<number, PartySlotSnapshot>();
@@ -1025,7 +1107,7 @@ export default async function bindPartyEditor(
       clearAllDirty(root, dirtySlots);
     }
 
-    const partyCount = syncPartyFromGame(
+    syncPartyFromGame(
       gameboy,
       root,
       dirtySlots,
@@ -1034,26 +1116,13 @@ export default async function bindPartyEditor(
       manual,
       activeSlots
     );
-    if (partyCount === null) {
-      if (manual) {
-        setStatus("Load a Crystal save in-game to read party data.", true);
-      }
-      return;
-    }
-
-    if (manual) {
-      setStatus("Synced " + partyCount + " Pokémon from memory.");
-      forceBadgeRefresh(gameboy, root);
-    }
+    syncPartyHpFromGame(gameboy, root);
+    syncBadgesFromRam(gameboy, root, manual);
   }
 
   window.setInterval(() => {
     refreshFromGame(false);
   }, SYNC_INTERVAL_MS);
-
-  if (syncButton) {
-    syncButton.addEventListener("click", () => refreshFromGame(true));
-  }
 
   root.addEventListener("click", async event => {
     const target = event.target as HTMLElement;

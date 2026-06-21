@@ -5,6 +5,7 @@ import {
   KANTO_BADGES_ADDRESS,
   BadgeDefinition
 } from "./crystal-badge-data";
+import { PARTY_COUNT_ADDRESS, PLAYER_NAME_ADDRESS } from "./crystal-party-data";
 import { GameBoyInstance } from "./jsgbc-globals";
 
 export interface BadgeState extends BadgeDefinition {
@@ -27,13 +28,7 @@ export interface BadgeRegionSyncState {
   pendingCount: number;
 }
 
-const STABLE_READS_REQUIRED = 2;
-const CLEAR_BADGES_READS_REQUIRED = 4;
-const INCREASE_READS_REQUIRED = 1;
-
-function isBadgeSuperset(incoming: number, previous: number): boolean {
-  return (incoming & previous) === previous;
-}
+const LOSS_READS_REQUIRED = 3;
 
 function countBits(value: number): number {
   let count = 0;
@@ -45,10 +40,6 @@ function countBits(value: number): number {
   }
 
   return count;
-}
-
-function countBitChanges(previous: number, incoming: number): number {
-  return countBits((previous ^ incoming) & 0xff);
 }
 
 function mapBadges(
@@ -81,6 +72,17 @@ export function createBadgeRegionSyncState(): BadgeRegionSyncState {
   };
 }
 
+/** Ignore an all-zero badge read before the save has actually loaded into WRAM. */
+export function hasSaveActivity(gameboy: GameBoyInstance): boolean {
+  const partyCount = gameboy.readByte(PARTY_COUNT_ADDRESS) & 0xff;
+  if (partyCount > 0 && partyCount <= 6) {
+    return true;
+  }
+
+  const nameByte = gameboy.readByte(PLAYER_NAME_ADDRESS) & 0xff;
+  return nameByte !== 0 && nameByte !== 0xff;
+}
+
 export function readBadgeSnapshot(gameboy: GameBoyInstance): BadgeSnapshot {
   const johtoByte = gameboy.readByte(JOHTO_BADGES_ADDRESS) & 0xff;
   const kantoByte = gameboy.readByte(KANTO_BADGES_ADDRESS) & 0xff;
@@ -101,18 +103,26 @@ export function readBadgeSnapshot(gameboy: GameBoyInstance): BadgeSnapshot {
 }
 
 /**
- * Accept badge-byte updates after repeated identical reads, so battle/menu
- * glitches do not flash. Any real change (save load, new badge) can still
- * settle within a few sync ticks — do not hard-reject multi-badge jumps.
+ * Accept badge-byte updates. Gains apply immediately; losses need repeated reads.
  */
 export function acceptRegionByte(
   incomingByte: number,
   state: BadgeRegionSyncState,
+  gameboy: GameBoyInstance,
   force = false
 ): boolean {
   const incoming = incomingByte & 0xff;
 
-  if (force || state.byte === null) {
+  if (force) {
+    state.pendingByte = null;
+    state.pendingCount = 0;
+    return true;
+  }
+
+  if (state.byte === null) {
+    if (incoming === 0 && hasSaveActivity(gameboy)) {
+      return false;
+    }
     state.pendingByte = null;
     state.pendingCount = 0;
     return true;
@@ -125,14 +135,10 @@ export function acceptRegionByte(
     return true;
   }
 
-  let requiredReads = STABLE_READS_REQUIRED;
-
-  if (isBadgeSuperset(incoming, previous) && incoming !== previous) {
-    requiredReads = INCREASE_READS_REQUIRED;
-  } else if (incoming === 0 && previous !== 0) {
-    requiredReads = CLEAR_BADGES_READS_REQUIRED;
-  } else if (countBitChanges(previous, incoming) > 1) {
-    requiredReads = STABLE_READS_REQUIRED + 1;
+  if (countBits(incoming) >= countBits(previous) && (incoming & previous) === previous) {
+    state.pendingByte = null;
+    state.pendingCount = 0;
+    return true;
   }
 
   if (state.pendingByte === incoming) {
@@ -142,7 +148,7 @@ export function acceptRegionByte(
     state.pendingCount = 1;
   }
 
-  if (state.pendingCount >= requiredReads) {
+  if (state.pendingCount >= LOSS_READS_REQUIRED) {
     state.pendingByte = null;
     state.pendingCount = 0;
     return true;

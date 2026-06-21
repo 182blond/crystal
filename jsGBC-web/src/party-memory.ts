@@ -1,6 +1,10 @@
 import {
   PARTY_COUNT_ADDRESS,
   PARTY_LENGTH,
+  PARTY_MON1_BASE,
+  PARTY_MON_HP_OFFSET,
+  PARTY_MON_MAX_HP_OFFSET,
+  PARTY_MON_STRUCT_LENGTH,
   PartySlotSnapshot,
   byteToHex,
   getPartySlotMap,
@@ -95,6 +99,107 @@ function readByte(gameboy: GameBoyInstance, address: string): number {
   return gameboy.readByte(address);
 }
 
+function readU16Be(gameboy: GameBoyInstance, address: number): number {
+  const hi = readByte(gameboy, address);
+  const lo = readByte(gameboy, address + 1);
+  return ((hi & 0xff) << 8) | (lo & 0xff);
+}
+
+export function isStableHpValues(currentHp: number, maxHp: number): boolean {
+  return (
+    maxHp >= 1 &&
+    maxHp <= 999 &&
+    currentHp >= 0 &&
+    currentHp <= maxHp
+  );
+}
+
+/** Party/battle HP bar width in pixels (6 tiles × 8 px). */
+export const HP_BAR_LENGTH_PX = 48;
+
+export type HpBarTier = "high" | "mid" | "critical";
+
+export const HP_BAR_COLORS: Record<HpBarTier, string> = {
+  high: "#48c858",
+  mid: "#f8d030",
+  critical: "#f85858"
+};
+
+/** Same as pret ComputeHPBarPixels: current * barLength / max. */
+export function computeHpBarPixels(currentHp: number, maxHp: number): number {
+  const current = Math.floor(currentHp);
+  const max = Math.floor(maxHp);
+
+  if (current <= 0 || max <= 0) {
+    return 0;
+  }
+
+  let product = current * HP_BAR_LENGTH_PX;
+  let divisor = max;
+
+  if (divisor >= 256) {
+    product = Math.floor(product / 4);
+    divisor = Math.floor(divisor / 4);
+  }
+
+  if (divisor <= 0) {
+    return 1;
+  }
+
+  let pixels = Math.floor(product / divisor);
+  if (pixels === 0) {
+    pixels = 1;
+  }
+
+  return pixels;
+}
+
+/** Same thresholds as pret GetHPPal (party menu / battle). */
+export function getHpBarTier(currentHp: number, maxHp: number): HpBarTier {
+  const pixels = computeHpBarPixels(currentHp, maxHp);
+  const greenAt = Math.floor((HP_BAR_LENGTH_PX * 50) / 100);
+  const yellowAt = Math.floor((HP_BAR_LENGTH_PX * 21) / 100);
+
+  if (pixels >= greenAt) {
+    return "high";
+  }
+  if (pixels >= yellowAt) {
+    return "mid";
+  }
+  return "critical";
+}
+
+export function readSlotHp(
+  gameboy: GameBoyInstance,
+  slot: number
+): { currentHp: number; maxHp: number } | null {
+  if (isSlotVacant(gameboy, slot)) {
+    return null;
+  }
+
+  const base = PARTY_MON1_BASE + (slot - 1) * PARTY_MON_STRUCT_LENGTH;
+  const currentHp = readU16Be(gameboy, base + PARTY_MON_HP_OFFSET);
+  const maxHp = readU16Be(gameboy, base + PARTY_MON_MAX_HP_OFFSET);
+
+  if (!isStableHpValues(currentHp, maxHp)) {
+    return null;
+  }
+
+  return { currentHp, maxHp };
+}
+
+function readSlotHpFromMap(
+  gameboy: GameBoyInstance,
+  slot: number,
+  occupied: boolean
+): { currentHp: number; maxHp: number } {
+  if (!occupied) {
+    return { currentHp: 0, maxHp: 0 };
+  }
+
+  return readSlotHp(gameboy, slot) || { currentHp: 0, maxHp: 0 };
+}
+
 export function readPartySnapshot(gameboy: GameBoyInstance): PartySnapshot {
   const partyCount = Math.min(readByte(gameboy, PARTY_COUNT_ADDRESS), PARTY_LENGTH);
   const slots: PartySlotSnapshot[] = [];
@@ -111,6 +216,7 @@ export function readPartySnapshot(gameboy: GameBoyInstance): PartySnapshot {
 
     const dv1 = readByte(gameboy, map.shiny[0]);
     const dv2 = readByte(gameboy, map.shiny[1]);
+    const hp = readSlotHpFromMap(gameboy, slot, occupied);
 
     slots.push({
       slot,
@@ -118,6 +224,8 @@ export function readPartySnapshot(gameboy: GameBoyInstance): PartySnapshot {
       speciesId: occupied ? byteToHex(species) : "00",
       shiny: occupied ? isShinyDVs(dv1, dv2) : false,
       level: occupied ? readByte(gameboy, map.level) : 0,
+      currentHp: hp.currentHp,
+      maxHp: hp.maxHp,
       moves: moves as [string, string, string, string]
     });
   }

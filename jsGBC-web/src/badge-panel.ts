@@ -10,8 +10,6 @@ import {
 } from "./badge-memory";
 import { GameBoyInstance } from "./jsgbc-globals";
 
-const SYNC_INTERVAL_MS = 400;
-
 interface BadgeSyncState {
   johto: BadgeRegionSyncState;
   kanto: BadgeRegionSyncState;
@@ -64,48 +62,27 @@ function updateBadgeGrid(grid: HTMLElement, badges: BadgeState[]) {
   }
 }
 
-function renderLockedBadges(root: HTMLElement) {
+function paintBadges(root: HTMLElement, syncState: BadgeSyncState) {
   const johtoGrid = root.querySelector("#badges-johto") as HTMLElement;
   const kantoGrid = root.querySelector("#badges-kanto") as HTMLElement;
-  const countElement = root.querySelector("#badge-count") as HTMLElement;
 
-  if (!johtoGrid || !kantoGrid || !countElement) {
+  if (!johtoGrid || !kantoGrid) {
     return;
   }
 
-  updateBadgeGrid(
-    johtoGrid,
-    JOHTO_BADGES.map(function(badge) {
-      return {
-        id: badge.id,
-        name: badge.name,
-        bit: badge.bit,
-        imageUrl: badge.imageUrl,
-        earned: false
-      };
-    })
-  );
-  updateBadgeGrid(
-    kantoGrid,
-    KANTO_BADGES.map(function(badge) {
-      return {
-        id: badge.id,
-        name: badge.name,
-        bit: badge.bit,
-        imageUrl: badge.imageUrl,
-        earned: false
-      };
-    })
-  );
-  countElement.textContent = "0 / 16 badges";
-}
+  if (syncState.johto.byte !== null) {
+    updateBadgeGrid(
+      johtoGrid,
+      mapBadgesFromByte(JOHTO_BADGES, syncState.johto.byte)
+    );
+  }
 
-function updateBadgeCount(countElement: HTMLElement, syncState: BadgeSyncState) {
-  const johtoCount =
-    syncState.johto.byte !== null ? countEarnedBadges(syncState.johto.byte) : 0;
-  const kantoCount =
-    syncState.kanto.byte !== null ? countEarnedBadges(syncState.kanto.byte) : 0;
-  countElement.textContent = johtoCount + kantoCount + " / 16 badges";
+  if (syncState.kanto.byte !== null) {
+    updateBadgeGrid(
+      kantoGrid,
+      mapBadgesFromByte(KANTO_BADGES, syncState.kanto.byte)
+    );
+  }
 }
 
 function refreshBadges(
@@ -114,14 +91,6 @@ function refreshBadges(
   syncState: BadgeSyncState,
   force = false
 ) {
-  const johtoGrid = root.querySelector("#badges-johto") as HTMLElement;
-  const kantoGrid = root.querySelector("#badges-kanto") as HTMLElement;
-  const countElement = root.querySelector("#badge-count") as HTMLElement;
-
-  if (!johtoGrid || !kantoGrid || !countElement) {
-    return;
-  }
-
   if (!gameboy.cartridge) {
     return;
   }
@@ -129,32 +98,30 @@ function refreshBadges(
   try {
     const snapshot = readBadgeSnapshot(gameboy);
 
-    if (acceptRegionByte(snapshot.johtoByte, syncState.johto, force)) {
+    if (acceptRegionByte(snapshot.johtoByte, syncState.johto, gameboy, force)) {
       syncState.johto.byte = snapshot.johtoByte;
     }
 
-    if (acceptRegionByte(snapshot.kantoByte, syncState.kanto, force)) {
+    if (acceptRegionByte(snapshot.kantoByte, syncState.kanto, gameboy, force)) {
       syncState.kanto.byte = snapshot.kantoByte;
     }
 
-    if (syncState.johto.byte !== null) {
-      updateBadgeGrid(
-        johtoGrid,
-        mapBadgesFromByte(JOHTO_BADGES, syncState.johto.byte)
-      );
-    }
-
-    if (syncState.kanto.byte !== null) {
-      updateBadgeGrid(
-        kantoGrid,
-        mapBadgesFromByte(KANTO_BADGES, syncState.kanto.byte)
-      );
-    }
-
-    updateBadgeCount(countElement, syncState);
+    paintBadges(root, syncState);
   } catch (error) {
-    countElement.textContent = "Badges — load save";
+    // Ignore transient read failures during boot.
   }
+}
+
+export function syncBadgesFromRam(
+  gameboy: GameBoyInstance,
+  root: HTMLElement,
+  force = false
+) {
+  if (!activeBadgeSyncState) {
+    return;
+  }
+
+  refreshBadges(gameboy, root, activeBadgeSyncState, force);
 }
 
 export function resetBadgeSync(
@@ -168,31 +135,15 @@ export function resetBadgeSync(
   activeBadgeSyncState.johto = createBadgeRegionSyncState();
   activeBadgeSyncState.kanto = createBadgeRegionSyncState();
 
-  if (root) {
-    renderLockedBadges(root);
-    if (gameboy && gameboy.cartridge) {
-      refreshBadges(gameboy, root, activeBadgeSyncState, true);
-    }
+  if (root && gameboy && gameboy.cartridge) {
+    refreshBadges(gameboy, root, activeBadgeSyncState, true);
   }
-}
-
-export function forceBadgeRefresh(
-  gameboy: GameBoyInstance,
-  root: HTMLElement
-) {
-  if (!activeBadgeSyncState) {
-    return;
-  }
-
-  refreshBadges(gameboy, root, activeBadgeSyncState, true);
 }
 
 export default function bindBadgePanel(
   gameboy: GameBoyInstance,
   root: HTMLElement
 ) {
-  gameboy.clearMemoryPatches();
-
   const johtoGrid = root.querySelector("#badges-johto") as HTMLElement;
   const kantoGrid = root.querySelector("#badges-kanto") as HTMLElement;
 
@@ -208,19 +159,4 @@ export default function bindBadgePanel(
 
   renderBadgeGrid(johtoGrid, JOHTO_BADGES, "johto");
   renderBadgeGrid(kantoGrid, KANTO_BADGES, "kanto");
-  renderLockedBadges(root);
-
-  if (gameboy.cartridge) {
-    refreshBadges(gameboy, root, syncState, true);
-  }
-
-  window.setTimeout(function() {
-    if (gameboy.cartridge) {
-      refreshBadges(gameboy, root, syncState, true);
-    }
-  }, 2000);
-
-  window.setInterval(function() {
-    refreshBadges(gameboy, root, syncState, false);
-  }, SYNC_INTERVAL_MS);
 }

@@ -6,6 +6,10 @@ export const PARTY_MON_STRUCT_LENGTH = 0x30;
 export const PARTY_LENGTH = 6;
 /** Level byte offset within each 0x30 party mon struct. */
 export const PARTY_MON_LEVEL_OFFSET = 0x1f;
+/** Current HP (big-endian u16) within each party mon struct. */
+export const PARTY_MON_HP_OFFSET = 0x22;
+/** Max HP (big-endian u16) within each party mon struct. */
+export const PARTY_MON_MAX_HP_OFFSET = 0x24;
 /** Experience (3 bytes, big-endian) within each party mon struct. */
 export const PARTY_MON_EXP_OFFSET = 0x08;
 /** Move PP bytes (one per move) within each party mon struct. */
@@ -56,6 +60,8 @@ export interface PartySlotSnapshot {
   speciesId: string;
   shiny: boolean;
   level: number;
+  currentHp: number;
+  maxHp: number;
   moves: [string, string, string, string];
 }
 
