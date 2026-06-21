@@ -27,7 +27,8 @@ export interface BadgeRegionSyncState {
   pendingCount: number;
 }
 
-const STABLE_READS_REQUIRED = 2;
+const STABLE_READS_REQUIRED = 3;
+const CLEAR_BADGES_READS_REQUIRED = 4;
 
 function countBits(value: number): number {
   let count = 0;
@@ -39,6 +40,10 @@ function countBits(value: number): number {
   }
 
   return count;
+}
+
+function countBitChanges(previous: number, incoming: number): number {
+  return countBits((previous ^ incoming) & 0xff);
 }
 
 function mapBadges(
@@ -108,6 +113,13 @@ export function acceptRegionByte(
     return true;
   }
 
+  let requiredReads = STABLE_READS_REQUIRED;
+  if (incoming === 0 && previous !== 0) {
+    requiredReads = CLEAR_BADGES_READS_REQUIRED;
+  } else if (countBitChanges(previous, incoming) > 1) {
+    requiredReads = STABLE_READS_REQUIRED + 1;
+  }
+
   if (state.pendingByte === incoming) {
     state.pendingCount++;
   } else {
@@ -115,7 +127,7 @@ export function acceptRegionByte(
     state.pendingCount = 1;
   }
 
-  if (state.pendingCount >= STABLE_READS_REQUIRED) {
+  if (state.pendingCount >= requiredReads) {
     state.pendingByte = null;
     state.pendingCount = 0;
     return true;

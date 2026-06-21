@@ -167,6 +167,8 @@ export default function bindBadgePanel(
   gameboy: GameBoyInstance,
   root: HTMLElement
 ) {
+  gameboy.clearMemoryPatches();
+
   const johtoGrid = root.querySelector("#badges-johto") as HTMLElement;
   const kantoGrid = root.querySelector("#badges-kanto") as HTMLElement;
 

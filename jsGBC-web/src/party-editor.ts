@@ -489,7 +489,7 @@ function syncPartyFromGame(
 
     if (
       !force &&
-      !isStablePartySnapshot(snapshot, lastGoodPartyCount.value)
+      !isStablePartySnapshot(snapshot, lastGoodPartyCount.value, gameboy, force)
     ) {
       return lastGoodPartyCount.value;
     }
@@ -521,7 +521,7 @@ function syncPartyFromGame(
       }
     }
 
-    if (force || isStablePartySnapshot(snapshot, lastGoodPartyCount.value)) {
+    if (force || isStablePartySnapshot(snapshot, lastGoodPartyCount.value, gameboy, force)) {
       lastGoodPartyCount.value = snapshot.partyCount;
     }
 
@@ -943,6 +943,8 @@ export default async function bindPartyEditor(
   gameboy: GameBoyInstance,
   root: HTMLElement
 ) {
+  gameboy.clearMemoryPatches();
+
   const statusElement = root.querySelector("#party-editor-status") as HTMLElement;
   const applyAllButton = root.querySelector(
     "#party-apply-all"

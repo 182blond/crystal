@@ -8,6 +8,10 @@ import {
   DEFAULT_NEW_MON_LEVEL
 } from "./crystal-party-data";
 import { GameBoyInstance } from "./jsgbc-globals";
+import {
+  isPartyRamConsistent,
+  isValidPartySpeciesByte
+} from "./crystal-game-state";
 
 export interface PartySnapshot {
   partyCount: number;
@@ -31,9 +35,21 @@ export function isStableSlotSnapshot(
     if (snapshot.speciesId === "00") {
       return false;
     }
+    if (!isValidPartySpeciesByte(parseInt(snapshot.speciesId, 16))) {
+      return false;
+    }
     if (snapshot.level < 1 || snapshot.level > MAX_PARTY_LEVEL) {
       return false;
     }
+  }
+
+  if (
+    previous &&
+    previous.occupied &&
+    snapshot.occupied &&
+    previous.speciesId !== snapshot.speciesId
+  ) {
+    return false;
   }
 
   if (previous && previous.occupied && !snapshot.occupied) {
@@ -56,13 +72,19 @@ export function isStableSlotSnapshot(
 
 export function isStablePartySnapshot(
   snapshot: PartySnapshot,
-  previousPartyCount: number | null
+  previousPartyCount: number | null,
+  gameboy?: GameBoyInstance,
+  force = false
 ): boolean {
   if (
     previousPartyCount !== null &&
     previousPartyCount > 0 &&
     snapshot.partyCount === 0
   ) {
+    return false;
+  }
+
+  if (!force && gameboy && !isPartyRamConsistent(gameboy, snapshot.partyCount)) {
     return false;
   }
 
