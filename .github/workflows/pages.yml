@@ -27,12 +27,14 @@ jobs:
       - name: Build jsGBC-core
         working-directory: jsGBC-core
         run: |
+          node -v
           npm ci --ignore-scripts
           npm run build
 
       - name: Build jsGBC-web
         working-directory: jsGBC-web
         run: |
+          node -v
           npm install --ignore-scripts
           npx bower install --allow-root
           npm run build:pages
